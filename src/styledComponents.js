@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const BgContainer = styled.div`
   background-color: #a6ffd5;
-  height: 90vh;
+  height: 88vh;
 `;
 
 export const Header = styled.div`

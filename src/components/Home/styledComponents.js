@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const HomeBg = styled.div`
   background-color: #a6ffd5;
-  height: 90vh;
+  height: 88vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
