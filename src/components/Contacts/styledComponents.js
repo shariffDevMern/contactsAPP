@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ContactsListSection = styled.div`
-  height: 83vh;
+  height:73vh;
   padding-left: 10px;
   padding-right: 10px;
 `;
@@ -40,5 +40,5 @@ export const ContactsListContainer = styled.ul`
   flex-direction: column;
   gap: 10px;
   overflow-y: scroll;
-  height: 73vh;
+    height:63vh;
 `;
