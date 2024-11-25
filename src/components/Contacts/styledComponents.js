@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const ContactsListSection = styled.div`
-  height:71vh;
-  padding-left: 10px;
-  padding-right: 10px;
+  height:83vh;
+  padding-left: 20px;
+  padding-right: 20px;
 `;
 export const SearchContainer = styled.div`
   display: flex;
@@ -40,5 +40,5 @@ export const ContactsListContainer = styled.ul`
   flex-direction: column;
   gap: 10px;
   overflow-y: scroll;
-    height:61vh;
+    height:73vh;
 `;

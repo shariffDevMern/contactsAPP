@@ -2,15 +2,15 @@ import styled from "styled-components";
 
 export const BgContainer = styled.div`
   background-color: #a6ffd5;
-  height: 88vh;
+  height: 100vh;
 `;
 
 export const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
   height: 10vh;
 
   svg {
