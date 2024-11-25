@@ -97,9 +97,9 @@ const Contacts = () => {
     },
   ]);
 
-  updateContact = () =>{
-    console.log("updated")
-  }
+  const onUpdateContact = () =>updateContact()
+
+  
 
   return (
     <BgContainer>
@@ -115,7 +115,7 @@ const Contacts = () => {
         <hr />
         <ContactsListContainer>
           {contactsList.map((eachContact) => (
-            <ContactsList key={eachContact.id} contactData={eachContact} />
+            <ContactsList onUpdateContact={onUpdateContact} key={eachContact.id} contactData={eachContact} />
           ))}
         </ContactsListContainer>
       </ContactsListSection>
