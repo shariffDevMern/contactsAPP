@@ -97,6 +97,10 @@ const Contacts = () => {
     },
   ]);
 
+  updateContact = () =>{
+    console.log("updated")
+  }
+
   return (
     <BgContainer>
       <Header>
