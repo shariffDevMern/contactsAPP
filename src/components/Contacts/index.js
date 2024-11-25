@@ -11,6 +11,7 @@ import {
 } from "./styledComponents";
 import Footer from "../Footer";
 import ContactsList from "../ContactsList";
+import AlphabetSideBar from '../AlphabetSideBar'
 
 const Contacts = () => {
   const [contactsList, updateContact] = useState([
@@ -111,8 +112,11 @@ const Contacts = () => {
         <SearchContainer>
           <SearchInput placeholder="Search" />
           <FaMagnifyingGlass />
+          
         </SearchContainer>
+        
         <hr />
+        <AlphabetSideBar/>
         <ContactsListContainer>
           {contactsList.map((eachContact) => (
             <ContactsList onUpdateContact={onUpdateContact} key={eachContact.id} contactData={eachContact} />

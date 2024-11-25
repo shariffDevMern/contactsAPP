@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom'
 import {
   ContactItem,
   Letter,
@@ -45,18 +46,20 @@ const ContactsList = (props) => {
 
   return (
     <ContactItem>
-      <Letter>{contactData.id}</Letter>
+      <Letter id={`${contactData.id}`}>{contactData.id}</Letter>
       <hr />
       <List>
         {contacts.map((eachContact) => {
           const randomIndex = Math.floor(Math.random() * profileBgList.length);
           return (
-            <Item key={eachContact.id}>
+            <Link key={eachContact.id} className="link" to={`/contacts/${eachContact.id}`}>
+            <Item >
               <Profile bgColor={profileBgList[randomIndex]}>
                 {contactData.id}
               </Profile>
               <ContactName>{eachContact.name}</ContactName>
             </Item>
+            </Link>
           );
         })}
       </List>
