@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { v4 as uuidV4 } from "uuid";
+import { Link } from "react-router-dom";
 import { CiCirclePlus } from "react-icons/ci";
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import ContactsContext from "../../ContactsContext";
 import { BgContainer, Header, MenuHeader } from "../../styledComponents";
 import {
   ContactsListSection,
@@ -12,119 +13,101 @@ import {
 import Footer from "../Footer";
 import ContactsList from "../ContactsList";
 import AlphabetSideBar from '../AlphabetSideBar'
+import ContactCard from "../ContactCard";
+
+const profileBgList = [
+  "#acf5b0",
+  "#e94488",
+  "#01d403",
+  "#2bd550",
+  "#9bfa8e",
+  "#43e21f",
+  "#12b9bf",
+  "#f0ce8f",
+  "#e3681e",
+  "#99b728",
+  "#ef9072",
+  "#67f61e",
+  "#dc00de",
+  "#b95906",
+  "#d18c5f",
+  "#d09063",
+  "#615c50",
+  "#df015e",
+  "#c7f453",
+  "#7211a2",
+  "#8fa202",
+  "#791f6e",
+  "#3c2242",
+  "#a66161",
+  "#e37bbe",
+  "#26d7c6",
+  "#6afa96",
+  "#187bda",
+  "#29686f",
+  "#f190ed",
+];
 
 const Contacts = () => {
-  const [contactsList, updateContact] = useState([
-    {
-      id: "A",
-      contacts: [
-        { id: uuidV4(), name: "Abdul" },
-        { id: uuidV4(), name: "Akbar" },
-        { id: uuidV4(), name: "Ali" },
-      ],
-    },
-    {
-      id: "B",
-      contacts: [
-        { id: uuidV4(), name: "Badu" },
-        { id: uuidV4(), name: "Balu" },
-        { id: uuidV4(), name: "Bommai" },
-      ],
-    },
-    {
-      id: "C",
-      contacts: [
-        { id: uuidV4(), name: "Cathy" },
-        { id: uuidV4(), name: "Charlie" },
-        { id: uuidV4(), name: "Cecil" },
-      ],
-    },
-    {
-      id: "D",
-      contacts: [
-        { id: uuidV4(), name: "David" },
-        { id: uuidV4(), name: "Dina" },
-        { id: uuidV4(), name: "Derek" },
-      ],
-    },
-    {
-      id: "E",
-      contacts: [
-        { id: uuidV4(), name: "Elena" },
-        { id: uuidV4(), name: "Eli" },
-        { id: uuidV4(), name: "Evan" },
-      ],
-    },
-    // Add remaining letters from F to Y in the same structure...
-    {
-      id: "Z",
-      contacts: [
-        { id: uuidV4(), name: "Zara" },
-        { id: uuidV4(), name: "Zane" },
-        { id: uuidV4(), name: "Zelda" },
-      ],
-    },
-    {
-      id: "Z",
-      contacts: [
-        { id: uuidV4(), name: "Zara" },
-        { id: uuidV4(), name: "Zane" },
-        { id: uuidV4(), name: "Zelda" },
-      ],
-    },
-    {
-      id: "Z",
-      contacts: [
-        { id: uuidV4(), name: "Zara" },
-        { id: uuidV4(), name: "Zane" },
-        { id: uuidV4(), name: "Zelda" },
-      ],
-    },
-    {
-      id: "Z",
-      contacts: [
-        { id: uuidV4(), name: "Zara" },
-        { id: uuidV4(), name: "Zane" },
-        { id: uuidV4(), name: "Zelda" },
-      ],
-    },
-    {
-      id: "Z",
-      contacts: [
-        { id: uuidV4(), name: "Zara" },
-        { id: uuidV4(), name: "Zane" },
-        { id: uuidV4(), name: "Zelda" },
-      ],
-    },
-  ]);
 
-  const onUpdateContact = () =>updateContact()
-
+  const [searchVal,changeSearchVal] = useState('')
   
 
   return (
-    <BgContainer>
+    <ContactsContext.Consumer>{value=>
+      {
+      const {contactsList} = value
+      const onChangeSearchVal = event =>{
+        changeSearchVal(event.target.value)
+      }
+      
+
+
+      const allContactsArray = []
+
+      contactsList.forEach(eachContact=>
+        allContactsArray.push(...eachContact.contacts)
+      )
+      const filteredContactsArray= allContactsArray.filter(eachContact=>eachContact.name.toLowerCase().includes(searchVal.toLowerCase()))
+        
+      return(
+        <BgContainer>
       <Header>
         <MenuHeader>Contacts</MenuHeader>
-        <CiCirclePlus />
+        <Link to="/addcontact" className="link">
+        <CiCirclePlus /></Link>
+        
       </Header>
       <ContactsListSection>
         <SearchContainer>
-          <SearchInput placeholder="Search" />
+          <SearchInput onChange={onChangeSearchVal} value={searchVal} placeholder="Search" />
+          
           <FaMagnifyingGlass />
+          
           
         </SearchContainer>
         
         <hr />
         <AlphabetSideBar/>
         <ContactsListContainer>
-          {contactsList.map((eachContact) => (
-            <ContactsList onUpdateContact={onUpdateContact} key={eachContact.id} contactData={eachContact} />
+          {searchVal.length>0?
+          filteredContactsArray.map(eachContact =>
+            
+            <Link key={eachContact.id} className="link" to={`/contacts/${eachContact.id}`}>
+        <ContactCard randomColor={profileBgList[5]} contactObj  = {eachContact} /></Link>
+
+          ):contactsList.map((eachContact) => (
+            <ContactsList key={eachContact.id} contactData={eachContact} />
           ))}
+          
         </ContactsListContainer>
       </ContactsListSection>
       <Footer />
-    </BgContainer>
+    </BgContainer> 
+      )
+       
+    }}</ContactsContext.Consumer>
+    
   );
 };
 

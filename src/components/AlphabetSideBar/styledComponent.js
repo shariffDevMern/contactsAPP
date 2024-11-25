@@ -14,4 +14,10 @@ export const AlphabetContainer = styled.div`
 export const Alphabet = styled.a`
     text-decoration:none;
     color:#3f6252;
-    font-size:12px;`
+    font-size:12px;
+    &:hover{
+        background-color:#3f6252;
+        color:white;
+        border-radius:10px;
+        padding:5px;
+        }`
