@@ -11,7 +11,7 @@ import {
   SearchContainer,
   ContactsListContainer,
   NoMatchBg,
-  EmptyText
+  EmptyText,
 } from "./styledComponents";
 import Footer from "../Footer";
 import ContactsList from "../ContactsList";
@@ -62,11 +62,12 @@ const Contacts = () => {
           changeSearchVal(event.target.value);
         };
 
-        const renderNoMatchView = () =>
-        <NoMatchBg>
-          <TbCalendarSad/>
-          <EmptyText>No Match Found!</EmptyText>
+        const renderNoMatchView = () => (
+          <NoMatchBg>
+            <TbCalendarSad />
+            <EmptyText>No Match Found!</EmptyText>
           </NoMatchBg>
+        );
 
         const allContactsArray = [];
 
@@ -100,19 +101,20 @@ const Contacts = () => {
               <AlphabetSideBar />
               <ContactsListContainer>
                 {searchVal.length > 0
-                  ? (filteredContactsArray.length>0? 
-                    filteredContactsArray.map((eachContact) => (
-                    <Link
-                      key={eachContact.id}
-                      className="link"
-                      to={`/contacts/${eachContact.id}`}
-                    >
-                      <ContactCard
-                        randomColor={profileBgList[5]}
-                        contactObj={eachContact}
-                      />
-                    </Link>
-                  )):renderNoMatchView())
+                  ? filteredContactsArray.length > 0
+                    ? filteredContactsArray.map((eachContact) => (
+                        <Link
+                          key={eachContact.id}
+                          className="link"
+                          to={`/contacts/${eachContact.id}`}
+                        >
+                          <ContactCard
+                            randomColor={profileBgList[5]}
+                            contactObj={eachContact}
+                          />
+                        </Link>
+                      ))
+                    : renderNoMatchView()
                   : contactsList.map((eachContact) => (
                       <ContactsList
                         key={eachContact.id}

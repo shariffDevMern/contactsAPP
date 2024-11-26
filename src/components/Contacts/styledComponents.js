@@ -44,23 +44,22 @@ export const ContactsListContainer = styled.ul`
 `;
 
 export const NoMatchBg = styled.div`
-  display:flex;
-  
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  height:60vh;
-  
+  display: flex;
 
-  svg{
-    height:100px;
-    color:#3f6252;
-    width:100px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+
+  svg {
+    height: 100px;
+    color: #3f6252;
+    width: 100px;
   }
-
-`
+`;
 
 export const EmptyText = styled.p`
-  text-align:center;
-  color:#3f6252;
-  font-weight:bold;`
+  text-align: center;
+  color: #3f6252;
+  font-weight: bold;
+`;
