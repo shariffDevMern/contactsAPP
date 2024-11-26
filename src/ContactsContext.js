@@ -1,9 +1,8 @@
 import React from "react";
 
 const ContactsContext = React.createContext({
-    contactsList:[],
-    updateContact:()=>{}
-    
-})
+  contactsList: [],
+  updateContact: () => {},
+});
 
-export default ContactsContext
+export default ContactsContext;

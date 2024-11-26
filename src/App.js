@@ -5,7 +5,8 @@ import "./App.css";
 import Home from "./components/Home";
 import Contacts from "./components/Contacts";
 import ContactItemDetails from "./components/ContactItemDetails";
-import ContactsContext from './ContactsContext'
+import AddContacts from "./components/AddContacts";
+import ContactsContext from "./ContactsContext";
 
 const App = () => {
   const [contactsList, updateContact] = useState([
@@ -58,17 +59,16 @@ const App = () => {
         { id: uuidV4(), name: "Zelda" },
       ],
     },
-    
   ]);
   return (
-    <ContactsContext.Provider value={{contactsList,updateContact}}>
+    <ContactsContext.Provider value={{ contactsList, updateContact }}>
       <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/contacts" element={<Contacts />} />
-      <Route path="/contacts/:id" element={<ContactItemDetails/>}/>
-    </Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/contacts" element={<Contacts />} />
+        <Route path="/contacts/:id" element={<ContactItemDetails />} />
+        <Route path="/add-contact" element={<AddContacts />} />
+      </Routes>
     </ContactsContext.Provider>
-    
   );
 };
 

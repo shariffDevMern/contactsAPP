@@ -1,11 +1,7 @@
-import {Link} from 'react-router-dom'
-import { useEffect,useState } from 'react';
-import {
-  ContactItem,
-  Letter,
-  List,
-} from "./styledComponents";
-import ContactCard from '../ContactCard'
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { ContactItem, Letter, List } from "./styledComponents";
+import ContactCard from "../ContactCard";
 
 const profileBgList = [
   "#acf5b0",
@@ -41,31 +37,32 @@ const profileBgList = [
 ];
 
 const ContactsList = (props) => {
+  const [randomIndex, updateRandomIndex] = useState("");
 
-  const [randomIndex,updateRandomIndex] = useState('')
-  
-  useEffect(()=>{
-    updateRandomIndex(Math.floor(Math.random() * profileBgList.length))
-  },[])
+  useEffect(() => {
+    updateRandomIndex(Math.floor(Math.random() * profileBgList.length));
+  }, []);
 
   const { contactData } = props;
   const { contacts } = contactData;
-  
 
   return (
     <ContactItem>
       <Letter id={`${contactData.id}`}>{contactData.id}</Letter>
       <hr />
       <List>
-        {contacts.map((eachContact) =><Link key={eachContact.id} className="link" to={`/contacts/${eachContact.id}`}>
-        <ContactCard randomColor={profileBgList[randomIndex]} contactObj  = {eachContact} /></Link>
-          
-        )}
-          
-            
-            
-            
-          
+        {contacts.map((eachContact) => (
+          <Link
+            key={eachContact.id}
+            className="link"
+            to={`/contacts/${eachContact.id}`}
+          >
+            <ContactCard
+              randomColor={profileBgList[randomIndex]}
+              contactObj={eachContact}
+            />
+          </Link>
+        ))}
       </List>
     </ContactItem>
   );

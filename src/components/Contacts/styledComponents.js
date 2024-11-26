@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ContactsListSection = styled.div`
-  height:83vh;
+  height: 83vh;
   padding-left: 20px;
   padding-right: 20px;
 `;
@@ -40,5 +40,27 @@ export const ContactsListContainer = styled.ul`
   flex-direction: column;
   gap: 10px;
   overflow-y: scroll;
-    height:73vh;
+  height: 73vh;
 `;
+
+export const NoMatchBg = styled.div`
+  display:flex;
+  
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  height:60vh;
+  
+
+  svg{
+    height:100px;
+    color:#3f6252;
+    width:100px;
+  }
+
+`
+
+export const EmptyText = styled.p`
+  text-align:center;
+  color:#3f6252;
+  font-weight:bold;`

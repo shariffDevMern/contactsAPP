@@ -1,6 +1,6 @@
 * {
   font-family: sans-serif;
-  scroll-behavior:smooth;
+  scroll-behavior: smooth;
 }
 
 ::placeholder {
@@ -9,21 +9,18 @@
   /* Firefox */
 }
 
-.link{
-  text-decoration:none;
-  padding:5px;
-  border-radius:5px;
-  
+.link {
+  text-decoration: none;
+  padding: 5px;
+  border-radius: 5px;
 }
 
-.link:active{
-  background-color:#3f6252;
-  li p{
-    color:white;
+.link:active {
+  background-color: #3f6252;
+  li p {
+    color: white;
   }
 }
-
-  
 
 body {
   margin: 0;
