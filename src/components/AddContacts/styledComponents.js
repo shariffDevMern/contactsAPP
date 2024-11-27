@@ -58,3 +58,47 @@ export const Input = styled.input`
 export const AddBtn = styled(CancelBtn)`
   margin-top: 20px;
 `;
+
+export const ContactAddedViewBg = styled.div`
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+`;
+
+export const TickContainer = styled.div`
+  border: 3px solid #3f6252;
+  height: 50px;
+  color: #3f6252;
+  width: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  svg {
+    height: 30px;
+    width: 30px;
+  }
+`;
+
+export const AddedMsg = styled.h1`
+  color: #3f6252;
+`;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  gap: 30px;
+  align-items: center;
+`;
+
+export const OptionButton = styled(CancelBtn)`
+  width: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+`;

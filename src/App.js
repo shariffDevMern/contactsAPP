@@ -1,4 +1,4 @@
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import { v4 as uuidV4 } from "uuid";
 import "./App.css";
@@ -169,8 +169,6 @@ const App = () => {
     },
   ]);
 
-  const navigate = useNavigate();
-
   console.log(contactsList);
 
   const AddContact = (contactData) => {
@@ -206,8 +204,6 @@ const App = () => {
         return sortedData;
       });
     }
-
-    navigate("/contacts");
   };
 
   return (

@@ -39,7 +39,7 @@ export const ContactsListContainer = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  overflow-y: scroll;
+  overflow-y: auto;
   height: 73vh;
 `;
 

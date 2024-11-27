@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { IoMdContact } from "react-icons/io";
+import { TiTick } from "react-icons/ti";
+import { RiContactsBook2Fill } from "react-icons/ri";
+import { FaRegPlusSquare } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidV4 } from "uuid";
 import ContactsContext from "../../ContactsContext";
@@ -10,6 +13,11 @@ import {
   Form,
   Input,
   AddBtn,
+  ContactAddedViewBg,
+  TickContainer,
+  AddedMsg,
+  ButtonContainer,
+  OptionButton,
 } from "./styledComponents";
 import { BgContainer, MenuHeader, Header } from "../../styledComponents";
 
@@ -50,6 +58,7 @@ const AddContacts = (props) => {
   const [name, updateName] = useState("");
   const [phNo, updatePhNo] = useState("");
   const [email, updateEmail] = useState("");
+  const [isSuccess, updateSuccessView] = useState(false);
 
   const navigate = useNavigate();
 
@@ -60,6 +69,26 @@ const AddContacts = (props) => {
   const onCancel = () => {
     navigate("/contacts");
   };
+
+  const onToggleView = () => updateSuccessView(false);
+
+  const renderContactAddedView = () => (
+    <ContactAddedViewBg>
+      <TickContainer>
+        <TiTick />
+      </TickContainer>
+      <AddedMsg>Contact Added!</AddedMsg>
+      <ButtonContainer>
+        <OptionButton onClick={onToggleView}>
+          <FaRegPlusSquare />
+          Add Another
+        </OptionButton>
+        <OptionButton onClick={onCancel} exit>
+          Go to <RiContactsBook2Fill />
+        </OptionButton>
+      </ButtonContainer>
+    </ContactAddedViewBg>
+  );
 
   return (
     <ContactsContext.Consumer>
@@ -75,41 +104,52 @@ const AddContacts = (props) => {
               profileBgList[Math.floor(Math.random() * profileBgList.length)],
             email,
           };
+
           AddContact(contactData);
+          updateSuccessView(true);
+          updateName("");
+          updatePhNo("");
+          updateEmail("");
         };
         return (
           <BgContainer>
-            <ProfileBackground>
-              <Header>
-                <MenuHeader>New Contact</MenuHeader>
+            {isSuccess ? (
+              renderContactAddedView()
+            ) : (
+              <>
+                <ProfileBackground>
+                  <Header>
+                    <MenuHeader>New Contact</MenuHeader>
 
-                <CancelBtn onClick={onCancel}>Cancel</CancelBtn>
-              </Header>
+                    <CancelBtn onClick={onCancel}>Cancel</CancelBtn>
+                  </Header>
 
-              <IoMdContact />
-              <Name>{name}</Name>
-            </ProfileBackground>
-            <Form onSubmit={onAddContact}>
-              <Input
-                required
-                onChange={onChangeName}
-                value={name}
-                placeholder="Name"
-              />
-              <Input
-                required
-                onChange={onChangePhNo}
-                value={phNo}
-                type="number"
-                placeholder="Phone Number"
-              />
-              <Input
-                onChange={onChangeEmail}
-                value={email}
-                placeholder="Email"
-              />
-              <AddBtn type="submit">Add</AddBtn>
-            </Form>
+                  <IoMdContact />
+                  <Name>{name}</Name>
+                </ProfileBackground>
+                <Form onSubmit={onAddContact}>
+                  <Input
+                    required
+                    onChange={onChangeName}
+                    value={name}
+                    placeholder="Name"
+                  />
+                  <Input
+                    required
+                    onChange={onChangePhNo}
+                    value={phNo}
+                    type="number"
+                    placeholder="Phone Number"
+                  />
+                  <Input
+                    onChange={onChangeEmail}
+                    value={email}
+                    placeholder="Email"
+                  />
+                  <AddBtn type="submit">Add</AddBtn>
+                </Form>
+              </>
+            )}
           </BgContainer>
         );
       }}
