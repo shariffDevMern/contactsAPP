@@ -4,22 +4,20 @@ import { ContactItem, Letter, List } from "./styledComponents";
 import ContactCard from "../ContactCard";
 
 const ContactsList = (props) => {
-  const { contactData } = props;
+  const { contactData, isSelectOptionChecked } = props;
   const { contacts } = contactData;
-
-  return (
+  const isContactsVisible = contacts.length === 0;
+  return isContactsVisible ? null : (
     <ContactItem>
       <Letter id={`${contactData.id}`}>{contactData.id}</Letter>
       <hr />
       <List>
         {contacts.map((eachContact) => (
-          <Link
+          <ContactCard
             key={eachContact.id}
-            className="link"
-            to={`/contacts/${eachContact.id}`}
-          >
-            <ContactCard contactObj={eachContact} />
-          </Link>
+            isSelectOptionChecked={isSelectOptionChecked}
+            contactObj={eachContact}
+          />
         ))}
       </List>
     </ContactItem>

@@ -4,6 +4,16 @@ export const Item = styled.li`
   display: flex;
   align-items: center;
   gap: 20px;
+  svg {
+    margin-left: auto;
+    margin-right: 20px;
+  }
+  a {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+  }
 `;
 export const Profile = styled.div`
   height: 30px;

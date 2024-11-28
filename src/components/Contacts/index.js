@@ -2,9 +2,13 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { CiCirclePlus } from "react-icons/ci";
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import { IoCheckbox } from "react-icons/io5";
+import { TbCalendarSad } from "react-icons/tb";
+import { FiBookOpen } from "react-icons/fi";
+import { FaRegPlusSquare } from "react-icons/fa";
+import { MdOutlineSelectAll, MdDelete } from "react-icons/md";
 import ContactsContext from "../../ContactsContext";
 import { BgContainer, Header, MenuHeader } from "../../styledComponents";
-import { TbCalendarSad } from "react-icons/tb";
 import {
   ContactsListSection,
   SearchInput,
@@ -12,6 +16,12 @@ import {
   ContactsListContainer,
   NoMatchBg,
   EmptyText,
+  SelectContainer,
+  SelectContactsBtn,
+  DeleteBtn,
+  NoContactsContainer,
+  NoContactText,
+  AddContactBtn,
 } from "./styledComponents";
 import Footer from "../Footer";
 import ContactsList from "../ContactsList";
@@ -53,6 +63,9 @@ const profileBgList = [
 
 const Contacts = () => {
   const [searchVal, changeSearchVal] = useState("");
+  const [isSelectOptionChecked, toggleSelectOption] = useState(false);
+  const OnToggleSelectOption = () =>
+    toggleSelectOption((prevState) => !prevState);
 
   return (
     <ContactsContext.Consumer>
@@ -69,14 +82,32 @@ const Contacts = () => {
           </NoMatchBg>
         );
 
+        const renderNoContacsView = () => (
+          <NoContactsContainer>
+            <NoContactText>
+              <FiBookOpen />
+              No Contacts To Show
+            </NoContactText>
+
+            <Link to="/add-contact" className="link">
+              <AddContactBtn>
+                <FaRegPlusSquare /> Add Contact
+              </AddContactBtn>
+            </Link>
+          </NoContactsContainer>
+        );
+
         const allContactsArray = [];
 
         contactsList.forEach((eachContact) =>
           allContactsArray.push(...eachContact.contacts),
         );
-        const filteredContactsArray = allContactsArray.filter((eachContact) =>
-          eachContact.name.toLowerCase().includes(searchVal.toLowerCase()),
-        );
+
+        const filteredContactsArray = allContactsArray.filter((eachContact) => {
+          return eachContact.name
+            .toLowerCase()
+            .includes(searchVal.toLowerCase());
+        });
 
         return (
           <BgContainer>
@@ -87,41 +118,68 @@ const Contacts = () => {
               </Link>
             </Header>
             <ContactsListSection>
-              <SearchContainer>
-                <SearchInput
-                  onChange={onChangeSearchVal}
-                  value={searchVal}
-                  placeholder="Search"
-                />
+              {contactsList.length === 0 ? (
+                renderNoContacsView()
+              ) : (
+                <>
+                  <SearchContainer>
+                    <SearchInput
+                      onChange={onChangeSearchVal}
+                      value={searchVal}
+                      placeholder="Search"
+                    />
 
-                <FaMagnifyingGlass />
-              </SearchContainer>
+                    <FaMagnifyingGlass />
+                  </SearchContainer>
+                  <SelectContainer>
+                    <SelectContactsBtn
+                      onClick={OnToggleSelectOption}
+                      isSelected={isSelectOptionChecked}
+                    >
+                      <IoCheckbox />
+                      Select
+                    </SelectContactsBtn>
+                    {isSelectOptionChecked ? (
+                      <>
+                        <SelectContactsBtn>
+                          <MdOutlineSelectAll />
+                          Select All
+                        </SelectContactsBtn>
+                        <DeleteBtn>
+                          <MdDelete />
+                        </DeleteBtn>
+                      </>
+                    ) : null}
+                  </SelectContainer>
 
-              <hr />
-              <AlphabetSideBar />
-              <ContactsListContainer>
-                {searchVal.length > 0
-                  ? filteredContactsArray.length > 0
-                    ? filteredContactsArray.map((eachContact) => (
-                        <Link
-                          key={eachContact.id}
-                          className="link"
-                          to={`/contacts/${eachContact.id}`}
-                        >
-                          <ContactCard
-                            randomColor={profileBgList[5]}
-                            contactObj={eachContact}
+                  <hr />
+                  <AlphabetSideBar />
+                  <ContactsListContainer>
+                    {searchVal.length > 0
+                      ? filteredContactsArray.length > 0
+                        ? filteredContactsArray.map((eachContact) => (
+                            <Link
+                              key={eachContact.id}
+                              className="link"
+                              to={`/contacts/${eachContact.id}`}
+                            >
+                              <ContactCard
+                                randomColor={profileBgList[5]}
+                                contactObj={eachContact}
+                              />
+                            </Link>
+                          ))
+                        : renderNoMatchView()
+                      : contactsList.map((eachContact) => (
+                          <ContactsList
+                            isSelectOptionChecked={isSelectOptionChecked}
+                            key={eachContact.id}
+                            contactData={eachContact}
                           />
-                        </Link>
-                      ))
-                    : renderNoMatchView()
-                  : contactsList.map((eachContact) => (
-                      <ContactsList
-                        key={eachContact.id}
-                        contactData={eachContact}
-                      />
-                    ))}
-              </ContactsListContainer>
+                        ))}
+                  </ContactsListContainer>
+                </>
+              )}
             </ContactsListSection>
             <Footer />
           </BgContainer>

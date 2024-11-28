@@ -103,6 +103,7 @@ const AddContacts = (props) => {
             profileBgColor:
               profileBgList[Math.floor(Math.random() * profileBgList.length)],
             email,
+            isChecked: false,
           };
 
           AddContact(contactData);
