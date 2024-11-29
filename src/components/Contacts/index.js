@@ -6,6 +6,7 @@ import { IoCheckbox } from "react-icons/io5";
 import { TbCalendarSad } from "react-icons/tb";
 import { FiBookOpen } from "react-icons/fi";
 import { FaRegPlusSquare } from "react-icons/fa";
+import Popup from 'reactjs-popup'
 import {
   MdOutlineSelectAll,
   MdDeselect,
@@ -27,6 +28,10 @@ import {
   NoContactsContainer,
   NoContactText,
   AddContactBtn,
+  PopUpContainer,
+  AlertMessage,
+  AlertBtnContainer,
+  AlertButton
 } from "./styledComponents";
 import Footer from "../Footer";
 import ContactsList from "../ContactsList";
@@ -101,11 +106,43 @@ const Contacts = () => {
           <BgContainer>
             <Header>
               <MenuHeader>Contacts</MenuHeader>
-              {!isSelectOptionChecked && (
+              {!isSelectOptionChecked ? 
                 <Link to="/add-contact" className="link">
                   <CiCirclePlus />
-                </Link>
-              )}
+                </Link>:
+                
+                <Popup
+                  modal
+                  trigger={
+                    <DeleteBtn>
+                          <MdDelete />
+                        </DeleteBtn>
+                  }
+                  position="bottom left"
+                >
+                  {close => (
+                    <>
+                      <PopUpContainer >
+                        <AlertMessage>Contacts will be deleted<br/>Are you sure want to?</AlertMessage>
+                        <AlertBtnContainer>
+                          <AlertButton delete>Delete</AlertButton>
+                        <AlertButton
+                        type="button"
+                        className="trigger-button"
+                        onClick={() => close()}
+                      >
+                        No
+                      </AlertButton>
+                        </AlertBtnContainer>
+                        
+                      </PopUpContainer>
+                      
+                    </>
+                  )}
+                </Popup>
+            }
+              
+                
             </Header>
             <ContactsListSection>
               {contactsList.length === 0 ? (
@@ -143,9 +180,7 @@ const Contacts = () => {
                           </SelectContactsBtn>
                         )}
 
-                        <DeleteBtn>
-                          <MdDelete />
-                        </DeleteBtn>
+                        
                       </>
                     ) : null}
                   </SelectContainer>
