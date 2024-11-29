@@ -6,7 +6,7 @@ import { IoCheckbox } from "react-icons/io5";
 import { TbCalendarSad } from "react-icons/tb";
 import { FiBookOpen } from "react-icons/fi";
 import { FaRegPlusSquare } from "react-icons/fa";
-import Popup from 'reactjs-popup'
+import Popup from "reactjs-popup";
 import {
   MdOutlineSelectAll,
   MdDeselect,
@@ -31,14 +31,12 @@ import {
   PopUpContainer,
   AlertMessage,
   AlertBtnContainer,
-  AlertButton
+  AlertButton,
 } from "./styledComponents";
 import Footer from "../Footer";
 import ContactsList from "../ContactsList";
 import AlphabetSideBar from "../AlphabetSideBar";
 import ContactCard from "../ContactCard";
-
-
 
 const Contacts = () => {
   const [searchVal, changeSearchVal] = useState("");
@@ -48,7 +46,8 @@ const Contacts = () => {
   return (
     <ContactsContext.Consumer>
       {(value) => {
-        const { contactsList, toggleSelectAllContacts } = value;
+        const { contactsList, toggleSelectAllContacts, onDeleteContacts } =
+          value;
         const onChangeSearchVal = (event) => {
           changeSearchVal(event.target.value);
         };
@@ -66,6 +65,12 @@ const Contacts = () => {
           } else {
             toggleSelectAllContacts(false);
           }
+        };
+
+        const deleteContacts = () => {
+          onDeleteContacts();
+          toggleSelectAll(false);
+          toggleSelectOption(false);
         };
 
         const renderNoMatchView = () => (
@@ -106,43 +111,48 @@ const Contacts = () => {
           <BgContainer>
             <Header>
               <MenuHeader>Contacts</MenuHeader>
-              {!isSelectOptionChecked ? 
+              {!isSelectOptionChecked ? (
                 <Link to="/add-contact" className="link">
                   <CiCirclePlus />
-                </Link>:
-                
+                </Link>
+              ) : (
                 <Popup
                   modal
                   trigger={
                     <DeleteBtn>
-                          <MdDelete />
-                        </DeleteBtn>
+                      <MdDelete />
+                    </DeleteBtn>
                   }
                   position="bottom left"
                 >
-                  {close => (
+                  {(close) => (
                     <>
-                      <PopUpContainer >
-                        <AlertMessage>Contacts will be deleted<br/>Are you sure want to?</AlertMessage>
+                      <PopUpContainer>
+                        <AlertMessage>
+                          Contacts will be deleted
+                          <br />
+                          Are you sure want to?
+                        </AlertMessage>
                         <AlertBtnContainer>
-                          <AlertButton delete>Delete</AlertButton>
-                        <AlertButton
-                        type="button"
-                        className="trigger-button"
-                        onClick={() => close()}
-                      >
-                        No
-                      </AlertButton>
+                          <AlertButton
+                            onClick={() => close(deleteContacts())}
+                            delete
+                          >
+                            Delete
+                          </AlertButton>
+                          <AlertButton
+                            type="button"
+                            className="trigger-button"
+                            onClick={() => close()}
+                          >
+                            No
+                          </AlertButton>
                         </AlertBtnContainer>
-                        
                       </PopUpContainer>
-                      
                     </>
                   )}
                 </Popup>
-            }
-              
-                
+              )}
             </Header>
             <ContactsListSection>
               {contactsList.length === 0 ? (
@@ -179,15 +189,13 @@ const Contacts = () => {
                             Select All
                           </SelectContactsBtn>
                         )}
-
-                        
                       </>
                     ) : null}
                   </SelectContainer>
 
                   <hr />
-                  {!isSelectOptionChecked&&<AlphabetSideBar />}
-                  
+                  {!isSelectOptionChecked && <AlphabetSideBar />}
+
                   <ContactsListContainer>
                     {searchVal.length > 0
                       ? filteredContactsArray.length > 0

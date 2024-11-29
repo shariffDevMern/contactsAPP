@@ -9,7 +9,6 @@ import ContactsContext from "./ContactsContext";
 
 const App = () => {
   const [contactsList, updateContact] = useState([]);
-  const [selectedContacts,addSelectedContacts] = useState([])
 
   const AddContact = (contactData) => {
     const firstLetter = contactData.name[0].toUpperCase();
@@ -57,9 +56,7 @@ const App = () => {
       return { ...eachContact, contacts: updatedUserContactsList };
     });
     updateContact(updatedContactsList);
-    addSelectedContacts(prevState=>[...prevState,{id}])
   };
-  console.log(selectedContacts)
 
   const toggleSelectAllContacts = (value) => {
     const updatedContactsList = contactsList.map((eachContact) => {
@@ -73,7 +70,17 @@ const App = () => {
     updateContact(updatedContactsList);
   };
 
+  const onDeleteContacts = () => {
+    const updatedContactsList = contactsList
+      .map((item) => ({
+        ...item,
+        contacts: item.contacts.filter((contact) => !contact.isChecked),
+      }))
+      .filter((item) => item.contacts.length > 0);
 
+    updateContact(updatedContactsList);
+  };
+  console.log(contactsList);
 
   return (
     <ContactsContext.Provider
@@ -82,6 +89,7 @@ const App = () => {
         AddContact,
         onToggleSelectContact,
         toggleSelectAllContacts,
+        onDeleteContacts,
       }}
     >
       <Routes>

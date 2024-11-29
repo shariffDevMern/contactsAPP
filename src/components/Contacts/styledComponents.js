@@ -87,10 +87,9 @@ export const DeleteBtn = styled.button`
   background-color: transparent;
   border-style: none;
   cursor: pointer;
-  
 
-  svg{
-  color: darkred;
+  svg {
+    color: darkred;
   }
 `;
 
@@ -122,28 +121,27 @@ export const AddContactBtn = styled.button`
 `;
 
 export const PopUpContainer = styled.div`
-  background-color:#3f6243;
-  text-align:center;
-  color:#a6ffd5;
-  padding:20px;
-  border-radius:10px;
-  
-  `
+  background-color: #3f6243;
+  text-align: center;
+  color: #a6ffd5;
+  padding: 20px;
+  border-radius: 10px;
+`;
 export const AlertMessage = styled.p`
-  line-height:1.5;
-`
+  line-height: 1.5;
+`;
 
-export const AlertBtnContainer=  styled.div`
-  display:flex;
-  gap:10px;
-  justify-content:center;`
+export const AlertBtnContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+`;
 
 export const AlertButton = styled.button`
-  width:70px;
-  padding:10px;
-  color:${props=>props.delete?"white":"#3f6243"};
-  border-style:none;
-  background-color:${props=>props.delete?"darkRed":"#a6ffd5"};
-  border-radius:10px;
-  
-`
+  width: 70px;
+  padding: 10px;
+  color: ${(props) => (props.delete ? "white" : "#3f6243")};
+  border-style: none;
+  background-color: ${(props) => (props.delete ? "darkRed" : "#a6ffd5")};
+  border-radius: 10px;
+`;
