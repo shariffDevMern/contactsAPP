@@ -58,9 +58,26 @@ const App = () => {
     updateContact(updatedContactsList);
   };
 
+  const toggleSelectAllContacts = (value) => {
+    const updatedContactsList = contactsList.map((eachContact) => {
+      const contactsArray = eachContact.contacts;
+      const updatedContactsArray = contactsArray.map((contact) => ({
+        ...contact,
+        isChecked: value,
+      }));
+      return { ...eachContact, contacts: updatedContactsArray };
+    });
+    updateContact(updatedContactsList);
+  };
+
   return (
     <ContactsContext.Provider
-      value={{ contactsList, AddContact, onToggleSelectContact }}
+      value={{
+        contactsList,
+        AddContact,
+        onToggleSelectContact,
+        toggleSelectAllContacts,
+      }}
     >
       <Routes>
         <Route path="/" element={<Home />} />

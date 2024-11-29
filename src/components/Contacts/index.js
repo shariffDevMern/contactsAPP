@@ -6,7 +6,12 @@ import { IoCheckbox } from "react-icons/io5";
 import { TbCalendarSad } from "react-icons/tb";
 import { FiBookOpen } from "react-icons/fi";
 import { FaRegPlusSquare } from "react-icons/fa";
-import { MdOutlineSelectAll, MdDelete } from "react-icons/md";
+import {
+  MdOutlineSelectAll,
+  MdDeselect,
+  MdDelete,
+  MdCancel,
+} from "react-icons/md";
 import ContactsContext from "../../ContactsContext";
 import { BgContainer, Header, MenuHeader } from "../../styledComponents";
 import {
@@ -28,51 +33,34 @@ import ContactsList from "../ContactsList";
 import AlphabetSideBar from "../AlphabetSideBar";
 import ContactCard from "../ContactCard";
 
-const profileBgList = [
-  "#acf5b0",
-  "#e94488",
-  "#01d403",
-  "#2bd550",
-  "#9bfa8e",
-  "#43e21f",
-  "#12b9bf",
-  "#f0ce8f",
-  "#e3681e",
-  "#99b728",
-  "#ef9072",
-  "#67f61e",
-  "#dc00de",
-  "#b95906",
-  "#d18c5f",
-  "#d09063",
-  "#615c50",
-  "#df015e",
-  "#c7f453",
-  "#7211a2",
-  "#8fa202",
-  "#791f6e",
-  "#3c2242",
-  "#a66161",
-  "#e37bbe",
-  "#26d7c6",
-  "#6afa96",
-  "#187bda",
-  "#29686f",
-  "#f190ed",
-];
+
 
 const Contacts = () => {
   const [searchVal, changeSearchVal] = useState("");
   const [isSelectOptionChecked, toggleSelectOption] = useState(false);
-  const OnToggleSelectOption = () =>
-    toggleSelectOption((prevState) => !prevState);
+  const [isSelectAllChecked, toggleSelectAll] = useState(false);
 
   return (
     <ContactsContext.Consumer>
       {(value) => {
-        const { contactsList } = value;
+        const { contactsList, toggleSelectAllContacts } = value;
         const onChangeSearchVal = (event) => {
           changeSearchVal(event.target.value);
+        };
+
+        const OnToggleSelectOption = () => {
+          toggleSelectAllContacts(false);
+          toggleSelectOption((prevState) => !prevState);
+          toggleSelectAll(false);
+        };
+
+        const onToggleSelectAll = () => {
+          toggleSelectAll((prevState) => !prevState);
+          if (!isSelectAllChecked) {
+            toggleSelectAllContacts(true);
+          } else {
+            toggleSelectAllContacts(false);
+          }
         };
 
         const renderNoMatchView = () => (
@@ -113,9 +101,11 @@ const Contacts = () => {
           <BgContainer>
             <Header>
               <MenuHeader>Contacts</MenuHeader>
-              <Link to="/add-contact" className="link">
-                <CiCirclePlus />
-              </Link>
+              {!isSelectOptionChecked && (
+                <Link to="/add-contact" className="link">
+                  <CiCirclePlus />
+                </Link>
+              )}
             </Header>
             <ContactsListSection>
               {contactsList.length === 0 ? (
@@ -136,15 +126,23 @@ const Contacts = () => {
                       onClick={OnToggleSelectOption}
                       isSelected={isSelectOptionChecked}
                     >
-                      <IoCheckbox />
-                      Select
+                      {isSelectOptionChecked ? <MdCancel /> : <IoCheckbox />}
+                      {isSelectOptionChecked ? "Cancel" : "Select"}
                     </SelectContactsBtn>
                     {isSelectOptionChecked ? (
                       <>
-                        <SelectContactsBtn>
-                          <MdOutlineSelectAll />
-                          Select All
-                        </SelectContactsBtn>
+                        {isSelectAllChecked ? (
+                          <SelectContactsBtn onClick={onToggleSelectAll}>
+                            <MdDeselect />
+                            Deselect All
+                          </SelectContactsBtn>
+                        ) : (
+                          <SelectContactsBtn onClick={onToggleSelectAll}>
+                            <MdOutlineSelectAll />
+                            Select All
+                          </SelectContactsBtn>
+                        )}
+
                         <DeleteBtn>
                           <MdDelete />
                         </DeleteBtn>
@@ -153,21 +151,17 @@ const Contacts = () => {
                   </SelectContainer>
 
                   <hr />
-                  <AlphabetSideBar />
+                  {!isSelectOptionChecked&&<AlphabetSideBar />}
+                  
                   <ContactsListContainer>
                     {searchVal.length > 0
                       ? filteredContactsArray.length > 0
                         ? filteredContactsArray.map((eachContact) => (
-                            <Link
+                            <ContactCard
+                              isSelectOptionChecked={isSelectOptionChecked}
                               key={eachContact.id}
-                              className="link"
-                              to={`/contacts/${eachContact.id}`}
-                            >
-                              <ContactCard
-                                randomColor={profileBgList[5]}
-                                contactObj={eachContact}
-                              />
-                            </Link>
+                              contactObj={eachContact}
+                            />
                           ))
                         : renderNoMatchView()
                       : contactsList.map((eachContact) => (

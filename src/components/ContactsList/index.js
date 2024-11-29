@@ -1,5 +1,3 @@
-
-
 import { ContactItem, Letter, List } from "./styledComponents";
 import ContactCard from "../ContactCard";
 

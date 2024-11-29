@@ -2,7 +2,10 @@ import styled from "styled-components";
 
 export const Item = styled.li`
   display: flex;
+  padding: 5px;
+  border-radius: 10px;
   align-items: center;
+  background-color: ${(props) => (props.bgColor ? "#3f6252" : "")};
   gap: 20px;
   svg {
     margin-left: auto;
@@ -29,5 +32,5 @@ export const Profile = styled.div`
 `;
 
 export const ContactName = styled.p`
-  color: #3f6252;
+  color: ${(props) => (props.bgColor ? "#a6ffd5" : "#3f6252")};
 `;

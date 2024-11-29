@@ -17,6 +17,7 @@ const ContactCard = (props) => {
         };
         return (
           <Item
+            bgColor={contactObj.isChecked}
             onClick={selectContact}
             id={`${contactObj.name[0].toUpperCase()}`}
           >
@@ -25,14 +26,18 @@ const ContactCard = (props) => {
                 <Profile bgColor={contactObj.profileBgColor}>
                   {contactObj.name[0].toUpperCase()}
                 </Profile>
-                <ContactName>{contactObj.name}</ContactName>
+                <ContactName bgColor={contactObj.isChecked}>
+                  {contactObj.name}
+                </ContactName>
               </>
             ) : (
               <Link className="link" to={`/contacts/${contactObj.id}`}>
                 <Profile bgColor={contactObj.profileBgColor}>
                   {contactObj.name[0].toUpperCase()}
                 </Profile>
-                <ContactName>{contactObj.name}</ContactName>
+                <ContactName bgColor={contactObj.isChecked}>
+                  {contactObj.name}
+                </ContactName>
               </Link>
             )}
 
