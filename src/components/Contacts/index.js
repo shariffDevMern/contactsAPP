@@ -46,7 +46,7 @@ const Contacts = () => {
   return (
     <ContactsContext.Consumer>
       {(value) => {
-        const { contactsList, toggleSelectAllContacts, onDeleteContacts } =
+        const { contactsList, toggleSelectAllContacts, onDeleteContacts, selectedContacts } =
           value;
         const onChangeSearchVal = (event) => {
           changeSearchVal(event.target.value);
@@ -102,10 +102,15 @@ const Contacts = () => {
         );
 
         const filteredContactsArray = allContactsArray.filter((eachContact) => {
+          
           return eachContact.name
             .toLowerCase()
-            .includes(searchVal.toLowerCase());
+            .includes(searchVal.toLowerCase()) || 
+            eachContact.phone
+            .includes(searchVal.toLowerCase())
+            
         });
+        
 
         return (
           <BgContainer>
@@ -115,7 +120,7 @@ const Contacts = () => {
                 <Link to="/add-contact" className="link">
                   <CiCirclePlus />
                 </Link>
-              ) : (
+              ) : ( selectedContacts.length!==0 &&
                 <Popup
                   modal
                   trigger={
@@ -129,9 +134,7 @@ const Contacts = () => {
                     <>
                       <PopUpContainer>
                         <AlertMessage>
-                          Contacts will be deleted
-                          <br />
-                          Are you sure want to?
+                          {selectedContacts.length} contact{selectedContacts.length>1&&'s'} will be deleted.
                         </AlertMessage>
                         <AlertBtnContainer>
                           <AlertButton
@@ -145,7 +148,7 @@ const Contacts = () => {
                             className="trigger-button"
                             onClick={() => close()}
                           >
-                            No
+                            Cancel
                           </AlertButton>
                         </AlertBtnContainer>
                       </PopUpContainer>

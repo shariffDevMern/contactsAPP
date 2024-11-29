@@ -9,7 +9,7 @@ import ContactsContext from "./ContactsContext";
 
 const App = () => {
   const [contactsList, updateContact] = useState([]);
-
+  const [selectedContacts, updateSelectedContacts] = useState([])
   const AddContact = (contactData) => {
     const firstLetter = contactData.name[0].toUpperCase();
     const filteredContactsLength = contactsList.filter(
@@ -44,6 +44,7 @@ const App = () => {
   };
 
   const onToggleSelectContact = (id) => {
+    let selectedArray=[]
     const updatedContactsList = contactsList.map((eachContact) => {
       const userContactList = eachContact.contacts;
       const updatedUserContactsList = userContactList.map((userContact) => {
@@ -52,22 +53,34 @@ const App = () => {
         }
         return userContact;
       });
-
+       updatedUserContactsList.forEach(each=>{
+        if(each.isChecked===true){
+          selectedArray.push(each.id)
+      }})
       return { ...eachContact, contacts: updatedUserContactsList };
     });
     updateContact(updatedContactsList);
+    updateSelectedContacts(selectedArray)
   };
 
   const toggleSelectAllContacts = (value) => {
+    const emptyArray= []
     const updatedContactsList = contactsList.map((eachContact) => {
       const contactsArray = eachContact.contacts;
-      const updatedContactsArray = contactsArray.map((contact) => ({
-        ...contact,
-        isChecked: value,
-      }));
+      const updatedContactsArray = contactsArray.map((contact) => {
+        emptyArray.push(contact.id)
+        return {...contact,isChecked: value,}
+        
+      });
       return { ...eachContact, contacts: updatedContactsArray };
     });
     updateContact(updatedContactsList);
+    if(value){
+      updateSelectedContacts(emptyArray)
+    }
+    else{
+      updateSelectedContacts([])
+    }
   };
 
   const onDeleteContacts = () => {
@@ -80,12 +93,13 @@ const App = () => {
 
     updateContact(updatedContactsList);
   };
-  console.log(contactsList);
+  
 
   return (
     <ContactsContext.Provider
       value={{
         contactsList,
+        selectedContacts,
         AddContact,
         onToggleSelectContact,
         toggleSelectAllContacts,
