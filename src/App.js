@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useState} from "react";
 import "./App.css";
 import Home from "./components/Home";
 import Contacts from "./components/Contacts";
@@ -8,17 +8,28 @@ import AddContacts from "./components/AddContacts";
 import ContactsContext from "./ContactsContext";
 
 const App = () => {
-  const [contactsList, updateContact] = useState([]);
-  const [selectedContacts, updateSelectedContacts] = useState([])
+  // Retrieve contacts from local storage or initialize with an empty array
+  const [contactsList, updateContact] = useState(() => {
+    const storedContacts = localStorage.getItem("contactsList");
+    return storedContacts ? JSON.parse(storedContacts) : [];
+  });
+  const [selectedContacts, updateSelectedContacts] = useState([]);
+
+  // Function to update local storage whenever contactsList changes
+  const updateLocalStorage = (updatedList) => {
+    localStorage.setItem("contactsList", JSON.stringify(updatedList));
+  };
+
   const AddContact = (contactData) => {
     const firstLetter = contactData.name[0].toUpperCase();
     const filteredContactsLength = contactsList.filter(
       (eachContact) => eachContact.id === firstLetter,
     ).length;
+
     if (filteredContactsLength) {
-      const contactObj = contactsList.filter(
+      const contactObj = contactsList.find(
         (eachContact) => eachContact.id === firstLetter,
-      )[0];
+      );
       const updatedContactsList = contactsList.map((eachContact) => {
         if (eachContact.id === contactObj.id) {
           return {
@@ -29,6 +40,7 @@ const App = () => {
         return eachContact;
       });
       updateContact(updatedContactsList);
+      updateLocalStorage(updatedContactsList); // Update local storage
     } else {
       updateContact((prevState) => {
         const contactArray = [
@@ -38,13 +50,14 @@ const App = () => {
         const sortedData = contactArray.sort((a, b) =>
           a.id.localeCompare(b.id),
         );
+        updateLocalStorage(sortedData); // Update local storage
         return sortedData;
       });
     }
   };
 
   const onToggleSelectContact = (id) => {
-    let selectedArray=[]
+    let selectedArray = [];
     const updatedContactsList = contactsList.map((eachContact) => {
       const userContactList = eachContact.contacts;
       const updatedUserContactsList = userContactList.map((userContact) => {
@@ -53,34 +66,35 @@ const App = () => {
         }
         return userContact;
       });
-       updatedUserContactsList.forEach(each=>{
-        if(each.isChecked===true){
-          selectedArray.push(each.id)
-      }})
+      updatedUserContactsList.forEach((each) => {
+        if (each.isChecked === true) {
+          selectedArray.push(each.id);
+        }
+      });
       return { ...eachContact, contacts: updatedUserContactsList };
     });
     updateContact(updatedContactsList);
-    updateSelectedContacts(selectedArray)
+    updateSelectedContacts(selectedArray);
+     // Update local storage
   };
 
   const toggleSelectAllContacts = (value) => {
-    const emptyArray= []
+    const emptyArray = [];
     const updatedContactsList = contactsList.map((eachContact) => {
       const contactsArray = eachContact.contacts;
       const updatedContactsArray = contactsArray.map((contact) => {
-        emptyArray.push(contact.id)
-        return {...contact,isChecked: value,}
-        
+        emptyArray.push(contact.id);
+        return { ...contact, isChecked: value };
       });
       return { ...eachContact, contacts: updatedContactsArray };
     });
     updateContact(updatedContactsList);
-    if(value){
-      updateSelectedContacts(emptyArray)
+    if (value) {
+      updateSelectedContacts(emptyArray);
+    } else {
+      updateSelectedContacts([]);
     }
-    else{
-      updateSelectedContacts([])
-    }
+     // Update local storage
   };
 
   const onDeleteContacts = () => {
@@ -92,8 +106,8 @@ const App = () => {
       .filter((item) => item.contacts.length > 0);
 
     updateContact(updatedContactsList);
+    updateLocalStorage(updatedContactsList); // Update local storage
   };
-  
 
   return (
     <ContactsContext.Provider

@@ -46,8 +46,12 @@ const Contacts = () => {
   return (
     <ContactsContext.Consumer>
       {(value) => {
-        const { contactsList, toggleSelectAllContacts, onDeleteContacts, selectedContacts } =
-          value;
+        const {
+          contactsList,
+          toggleSelectAllContacts,
+          onDeleteContacts,
+          selectedContacts,
+        } = value;
         const onChangeSearchVal = (event) => {
           changeSearchVal(event.target.value);
         };
@@ -102,15 +106,11 @@ const Contacts = () => {
         );
 
         const filteredContactsArray = allContactsArray.filter((eachContact) => {
-          
-          return eachContact.name
-            .toLowerCase()
-            .includes(searchVal.toLowerCase()) || 
-            eachContact.phone
-            .includes(searchVal.toLowerCase())
-            
+          return (
+            eachContact.name.toLowerCase().includes(searchVal.toLowerCase()) ||
+            eachContact.phone.includes(searchVal.toLowerCase())
+          );
         });
-        
 
         return (
           <BgContainer>
@@ -120,41 +120,45 @@ const Contacts = () => {
                 <Link to="/add-contact" className="link">
                   <CiCirclePlus />
                 </Link>
-              ) : ( selectedContacts.length!==0 &&
-                <Popup
-                  modal
-                  trigger={
-                    <DeleteBtn>
-                      <MdDelete />
-                    </DeleteBtn>
-                  }
-                  position="bottom left"
-                >
-                  {(close) => (
-                    <>
-                      <PopUpContainer>
-                        <AlertMessage>
-                          {selectedContacts.length} contact{selectedContacts.length>1&&'s'} will be deleted.
-                        </AlertMessage>
-                        <AlertBtnContainer>
-                          <AlertButton
-                            onClick={() => close(deleteContacts())}
-                            delete
-                          >
-                            Delete
-                          </AlertButton>
-                          <AlertButton
-                            type="button"
-                            className="trigger-button"
-                            onClick={() => close()}
-                          >
-                            Cancel
-                          </AlertButton>
-                        </AlertBtnContainer>
-                      </PopUpContainer>
-                    </>
-                  )}
-                </Popup>
+              ) : (
+                selectedContacts.length !== 0 && (
+                  <Popup
+                    modal
+                    trigger={
+                      <DeleteBtn>
+                        <MdDelete />
+                      </DeleteBtn>
+                    }
+                    position="bottom left"
+                  >
+                    {(close) => (
+                      <>
+                        <PopUpContainer>
+                          <AlertMessage>
+                            {selectedContacts.length} contact
+                            {selectedContacts.length > 1 && "s"} will be
+                            deleted.
+                          </AlertMessage>
+                          <AlertBtnContainer>
+                            <AlertButton
+                              onClick={() => close(deleteContacts())}
+                              delete
+                            >
+                              Delete
+                            </AlertButton>
+                            <AlertButton
+                              type="button"
+                              className="trigger-button"
+                              onClick={() => close()}
+                            >
+                              Cancel
+                            </AlertButton>
+                          </AlertBtnContainer>
+                        </PopUpContainer>
+                      </>
+                    )}
+                  </Popup>
+                )
               )}
             </Header>
             <ContactsListSection>
