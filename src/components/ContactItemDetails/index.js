@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 import { IoMdContact } from "react-icons/io";
-import { MdEmail } from "react-icons/md";
+import { MdEmail,MdModeEdit } from "react-icons/md";
 import { FaPhoneFlip } from "react-icons/fa6";
 import { FaVideo } from "react-icons/fa";
 import { RiMessage2Fill } from "react-icons/ri";
@@ -16,19 +16,18 @@ import {
   FeaturesContainer,
   FeatureButton,
   InputForm,
+  HeaderMenu,
+  HeaderBtn
 } from "./styledComponents";
 import FailureView from '../FailureView'
 
 
 const ContactItemDetails = () => {
   const contactId = useParams();
-  const [editMode, toggleEditMode] = useState(false);
-  return (
-    <ContactsContext.Consumer>
-      {(value) => {
-        const { contactsList } = value;
-        if(contactsList.length!==0){
-          const allContactsArray = [];
+  const navigate = useNavigate();
+  
+  const getContactsObj = (contactsList) =>{
+    const allContactsArray = [];
 
           contactsList.forEach((eachContact) =>
             allContactsArray.push(...eachContact.contacts),
@@ -36,11 +35,57 @@ const ContactItemDetails = () => {
           const filteredContactsArray = allContactsArray.filter(
             (eachContact) => eachContact.id === contactId.id,
           );
-          const contactObj = filteredContactsArray[0];
+          return(filteredContactsArray[0])
+  }
+    const goToContacts=()=>{
+        navigate('/contacts')
+    }
+  const [editMode, toggleEditMode] = useState(false);
+  const [contactName,updateContactName] = useState(() => {
+    const storedContacts = localStorage.getItem("contactsList");
+    console.log(storedContacts)
+    const contactObj = getContactsObj(JSON.parse(storedContacts))
+    return storedContacts ? contactObj.name : '';
+  })
+  const [phoneNo,updatePhoneNo] = useState(() => {
+    const storedContacts = localStorage.getItem("contactsList");
+    console.log(storedContacts)
+    const contactObj = getContactsObj(JSON.parse(storedContacts))
+    return storedContacts ? contactObj.phone : '';
+  })
+  const [mailId,updateMailId] = useState(() => {
+    const storedContacts = localStorage.getItem("contactsList");
+    console.log(storedContacts)
+    const contactObj = getContactsObj(JSON.parse(storedContacts))
+    return storedContacts ? contactObj.email : '';
+  })
+  const onUpdateContactName = (event) =>
+    updateContactName(event.target.value)
+  const onUpdatePhoneNo = (event) =>
+    updatePhoneNo(event.target.value)
+  const onUpdateMailId = (event) =>
+    updateMailId(event.target.value)
   
+    
+  
+  return (
+    <ContactsContext.Consumer>
+      {(value) => {
+        const { contactsList } = value;
+        if(contactsList.length!==0){
+          const contactObj = getContactsObj(contactsList);
+          const onToggleEditMode = () => {toggleEditMode(prevState=>!prevState)
+            updateContactName(contactObj.name)
+            updatePhoneNo(contactObj.phone)
+            updateMailId(contactObj.email)
+          }
           return (
             <BgContainer>
               <ProfileBackground>
+                <HeaderMenu>
+                <HeaderBtn onClick={goToContacts}>Go back to <IoMdContact/></HeaderBtn>
+                <HeaderBtn onClick={onToggleEditMode}>{!editMode?"Edit":"Cancel"} <MdModeEdit/></HeaderBtn>
+                </HeaderMenu>
                 <Profile bgColor={contactObj.profileBgColor}>
                   {contactObj.name[0].toUpperCase()}
                 </Profile>
@@ -49,18 +94,19 @@ const ContactItemDetails = () => {
                 <InputForm>
                   <InputContainer>
                     <IoMdContact />
-                    <InputBox disabled={!editMode} value={contactObj.name} />
+                    <InputBox required onChange={onUpdateContactName} disabled={!editMode} value={contactName} />
                   </InputContainer>
                   <InputContainer>
                     <FaPhoneFlip />
-                    <InputBox disabled={!editMode} value={contactObj.phone} />
+                    <InputBox required onChange={onUpdatePhoneNo} type="number" disabled={!editMode} value={phoneNo} />
                   </InputContainer>
                   <InputContainer>
                     <MdEmail />
                     <InputBox
+                      onChange={onUpdateMailId}
                       placeholder="Not exists"
                       disabled={!editMode}
-                      value={contactObj.email}
+                      value={mailId}
                     />
                   </InputContainer>
                 </InputForm>

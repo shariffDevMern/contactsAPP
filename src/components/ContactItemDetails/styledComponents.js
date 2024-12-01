@@ -6,11 +6,32 @@ export const ProfileBackground = styled.div`
   max-height: 400px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content:space-between;
   align-items: center;
   border-bottom-left-radius: 40px;
   border-bottom-right-radius: 40px;
+  padding:10px;
 `;
+
+export const HeaderMenu= styled.div`
+display:flex;
+justify-content:space-between;
+width:100%;
+align-items:center;
+`
+
+export const HeaderBtn = styled.button`
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:5px;
+  border-radius:10px;
+  padding:10px;
+  background-color: #3f6252;
+  border-style:none;
+  color: #a6ffd5;
+  `
+
 
 export const Profile = styled.div`
   height: 200px;
