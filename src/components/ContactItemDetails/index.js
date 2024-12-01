@@ -17,6 +17,8 @@ import {
   FeatureButton,
   InputForm,
 } from "./styledComponents";
+import FailureView from '../FailureView'
+
 
 const ContactItemDetails = () => {
   const contactId = useParams();
@@ -25,68 +27,74 @@ const ContactItemDetails = () => {
     <ContactsContext.Consumer>
       {(value) => {
         const { contactsList } = value;
+        if(contactsList.length!==0){
+          const allContactsArray = [];
 
-        const allContactsArray = [];
+          contactsList.forEach((eachContact) =>
+            allContactsArray.push(...eachContact.contacts),
+          );
+          const filteredContactsArray = allContactsArray.filter(
+            (eachContact) => eachContact.id === contactId.id,
+          );
+          const contactObj = filteredContactsArray[0];
+  
+          return (
+            <BgContainer>
+              <ProfileBackground>
+                <Profile bgColor={contactObj.profileBgColor}>
+                  {contactObj.name[0].toUpperCase()}
+                </Profile>
+              </ProfileBackground>
+              <UserDetailsContainer>
+                <InputForm>
+                  <InputContainer>
+                    <IoMdContact />
+                    <InputBox disabled={!editMode} value={contactObj.name} />
+                  </InputContainer>
+                  <InputContainer>
+                    <FaPhoneFlip />
+                    <InputBox disabled={!editMode} value={contactObj.phone} />
+                  </InputContainer>
+                  <InputContainer>
+                    <MdEmail />
+                    <InputBox
+                      placeholder="Not exists"
+                      disabled={!editMode}
+                      value={contactObj.email}
+                    />
+                  </InputContainer>
+                </InputForm>
+                <FeaturesContainer>
+                  <FeatureButton>
+                    <RiMessage2Fill />
+                    <br />
+                    Message
+                  </FeatureButton>
+                  <FeatureButton>
+                    <FaPhoneFlip />
+                    <br />
+                    Call
+                  </FeatureButton>
+                  <FeatureButton>
+                    <FaVideo />
+                    <br />
+                    Video
+                  </FeatureButton>
+                  <FeatureButton>
+                    <MdEmail />
+                    <br />
+                    Mail
+                  </FeatureButton>
+                </FeaturesContainer>
+              </UserDetailsContainer>
+            </BgContainer>
+          );
+        }
 
-        contactsList.forEach((eachContact) =>
-          allContactsArray.push(...eachContact.contacts),
-        );
-        const filteredContactsArray = allContactsArray.filter(
-          (eachContact) => eachContact.id === contactId.id,
-        );
-        const contactObj = filteredContactsArray[0];
-
-        return (
-          <BgContainer>
-            <ProfileBackground>
-              <Profile bgColor={contactObj.profileBgColor}>
-                {contactObj.name[0].toUpperCase()}
-              </Profile>
-            </ProfileBackground>
-            <UserDetailsContainer>
-              <InputForm>
-                <InputContainer>
-                  <IoMdContact />
-                  <InputBox disabled={!editMode} value={contactObj.name} />
-                </InputContainer>
-                <InputContainer>
-                  <FaPhoneFlip />
-                  <InputBox disabled={!editMode} value={contactObj.phone} />
-                </InputContainer>
-                <InputContainer>
-                  <MdEmail />
-                  <InputBox
-                    placeholder="Not exists"
-                    disabled={!editMode}
-                    value={contactObj.email}
-                  />
-                </InputContainer>
-              </InputForm>
-              <FeaturesContainer>
-                <FeatureButton>
-                  <RiMessage2Fill />
-                  <br />
-                  Message
-                </FeatureButton>
-                <FeatureButton>
-                  <FaPhoneFlip />
-                  <br />
-                  Call
-                </FeatureButton>
-                <FeatureButton>
-                  <FaVideo />
-                  <br />
-                  Video
-                </FeatureButton>
-                <FeatureButton>
-                  <MdEmail />
-                  <br />
-                  Mail
-                </FeatureButton>
-              </FeaturesContainer>
-            </UserDetailsContainer>
-          </BgContainer>
-        );
+        return(<BgContainer>
+          <FailureView/>
+        </BgContainer>)
+        
       }}
     </ContactsContext.Consumer>
   );
