@@ -104,3 +104,12 @@ export const InputForm = styled.form`
   flex-direction: column;
   gap: 20px;
 `;
+
+export const SaveButton = styled.button`
+border-radius:10px;
+  padding:10px;
+  background-color: #3f6252;
+  border-style:none;
+  color: #a6ffd5;
+
+`

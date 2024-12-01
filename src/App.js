@@ -118,6 +118,7 @@ const App = () => {
         onToggleSelectContact,
         toggleSelectAllContacts,
         onDeleteContacts,
+        updateContact
       }}
     >
       <Routes>
