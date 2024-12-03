@@ -44,22 +44,6 @@ Open in Browser Visit http://localhost:3000 to see the app in action.
 - Add new contacts by filling out the provided form.
 - Edit or delete contacts using the respective buttons in the contact list.
 - Use the search bar to filter contacts dynamically.
-  
-## Folder Structure
-
-
-contacts-app/
-│
-├── public/          # Public assets
-├── src/
-│   ├── components/  # React components
-│   ├── styles/      # CSS/Tailwind styles
-│   ├── utils/       # Utility functions
-│   ├── App.js       # Main app file
-│   └── index.js     # Entry point
-│
-├── package.json     # Dependencies and scripts
-└── README.md        # Project documentation
 
 ## Future Enhancements
 - Integrate with a backend API for real-time data management.
