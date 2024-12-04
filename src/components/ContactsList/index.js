@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { ContactItem, Letter, List } from "./styledComponents";
 import ContactCard from "../ContactCard";
 
@@ -11,11 +12,20 @@ const ContactsList = (props) => {
       <hr />
       <List>
         {contacts.map((eachContact) => (
-          <ContactCard
-            key={eachContact.id}
-            isSelectOptionChecked={isSelectOptionChecked}
-            contactObj={eachContact}
-          />
+          isSelectOptionChecked?<ContactCard
+          key={eachContact.id}
+          isSelectOptionChecked={isSelectOptionChecked}
+          contactObj={eachContact}
+        />:
+        <Link className="link" to={`/contacts/${eachContact.id}`}>
+        <ContactCard
+          key={eachContact.id}
+          isSelectOptionChecked={isSelectOptionChecked}
+          contactObj={eachContact}
+        />
+        </Link>
+          
+          
         ))}
       </List>
     </ContactItem>

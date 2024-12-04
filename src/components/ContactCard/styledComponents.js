@@ -33,4 +33,7 @@ export const Profile = styled.div`
 
 export const ContactName = styled.p`
   color: ${(props) => (props.bgColor ? "#a6ffd5" : "#3f6252")};
+  span{
+  font-size:10px;
+  }
 `;

@@ -207,11 +207,18 @@ const Contacts = () => {
                     {searchVal.length > 0
                       ? filteredContactsArray.length > 0
                         ? filteredContactsArray.map((eachContact) => (
-                            <ContactCard
-                              isSelectOptionChecked={isSelectOptionChecked}
-                              key={eachContact.id}
-                              contactObj={eachContact}
-                            />
+                          isSelectOptionChecked?<ContactCard
+                            
+                          key={eachContact.id}
+                          contactObj={eachContact}
+                        />:<Link className="link" to={`/contacts/${eachContact.id}`}>
+                          <ContactCard
+                            
+                            key={eachContact.id}
+                            contactObj={eachContact}
+                          />
+                          </Link>
+                          
                           ))
                         : renderNoMatchView()
                       : contactsList.map((eachContact) => (

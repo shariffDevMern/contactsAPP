@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { RiDeleteBack2Fill } from "react-icons/ri";
+import { FaPhoneFlip } from "react-icons/fa6";
+import ContactCard from '../ContactCard'
 import ContactsContext from "../../ContactsContext";
 import { BgContainer } from "../../styledComponents";
 import Footer from "../Footer";
@@ -11,7 +13,9 @@ import {
   Dialer,
   DialerButton,
   NumberContainer,
-  EraseButton
+  EraseButton,
+  ContactsListContainer,
+  CallContainer
 } from "./styledComponents";
 
 const dialerList = [
@@ -24,7 +28,10 @@ const dialerList = [
   { id: 7, value: "7" },
   { id: 8, value: "8" },
   { id: 9, value: "9" },
+  {id:'*',value:"*"},
   { id: 0, value: "0" },
+  {id:'#',value:"#"},
+  
 ];
 const soundList = [
   "/dial-sound-1.mp3",
@@ -44,15 +51,40 @@ const Keypad = () => {
   }
   return (
     <ContactsContext.Consumer>
-      {() => {
-        // const { contactsList, updateContact } = value;
+      {(value) => {
+        const { contactsList } = value;
+        console.log(contactsList)
+        const matchedContacts = []
+        if(contactsList.length!==0 || contactsList!==null){
+         
+
+    contactsList.forEach(group => {
+        const matchingContacts = group.contacts.filter(contact =>
+            contact.phone.includes(dialedNumber)
+        );
+        matchedContacts.push(...matchingContacts);
+    });
+          
+        }
+        
+        
+
         
         return (
           <BgContainer>
             <KeypadSectionBg>
+              {dialedNumber.length>0 && <ContactsListContainer>
+              {matchedContacts.map(eachContact=>{
+                const addNumberToInput= () =>{
+                  updateDialedNumber(eachContact.phone)
+                  console.log(eachContact.phone)
+                }
+                return <div key={eachContact.id} onClick={addNumberToInput}><ContactCard   contactObj={eachContact}/></div>})}
+              </ContactsListContainer>}
+              
               <KeypadContainer>
                 <NumberContainer>
-                  <NumberInput value={dialedNumber} type="number" />
+                  <NumberInput value={dialedNumber} />
                   {dialedNumber.length>0 && <EraseButton onClick={onEraseNumber}><RiDeleteBack2Fill/></EraseButton>}
                   
                 </NumberContainer>
@@ -84,6 +116,9 @@ const Keypad = () => {
                     );
                   })}
                 </Dialer>
+                <CallContainer>
+                    <FaPhoneFlip/>
+                </CallContainer>
               </KeypadContainer>
               <FooterContainer>
                 <Footer />

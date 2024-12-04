@@ -1,11 +1,9 @@
-import { Link } from "react-router-dom";
-import { ContactName, Profile, Item } from "./styledComponents";
+import { ContactName, Profile, Item} from "./styledComponents";
 import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
 import ContactsContext from "../../ContactsContext";
 
 const ContactCard = (props) => {
-  const { contactObj, isSelectOptionChecked } = props;
-
+  const { contactObj, isSelectOptionChecked} = props;
   return (
     <ContactsContext.Consumer>
       {(value) => {
@@ -26,19 +24,25 @@ const ContactCard = (props) => {
                 <Profile bgColor={contactObj.profileBgColor}>
                   {contactObj.name[0].toUpperCase()}
                 </Profile>
+                
                 <ContactName bgColor={contactObj.isChecked}>
                   {contactObj.name}
                 </ContactName>
               </>
             ) : (
-              <Link className="link" to={`/contacts/${contactObj.id}`}>
+              <>
                 <Profile bgColor={contactObj.profileBgColor}>
                   {contactObj.name[0].toUpperCase()}
                 </Profile>
+                
                 <ContactName bgColor={contactObj.isChecked}>
-                  {contactObj.name}
+                  {contactObj.name}<br/><span>{contactObj.phone}</span>
                 </ContactName>
-              </Link>
+                </>
+                
+                
+
+              
             )}
 
             {isSelectOptionChecked &&
@@ -47,6 +51,8 @@ const ContactCard = (props) => {
               ) : (
                 <MdCheckBoxOutlineBlank />
               ))}
+            
+
           </Item>
         );
       }}

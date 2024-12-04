@@ -30,7 +30,7 @@ export const NumberInput = styled.input`
 `;
 
 export const Dialer = styled.div`
-  width: 300px;
+  width: 200px;
     
   display: flex;
   flex-wrap: wrap;
@@ -38,7 +38,7 @@ export const Dialer = styled.div`
   justify-content: center;
 
   @media (min-width: 400px) {
-    width: 350px;
+    width: 300px;
   }
 `;
 
@@ -48,9 +48,9 @@ export const DialerButton = styled.button`
   color: white;
   display: flex;
   justify-content: center;
-  height: 70px;
-  width: 70px;
-  font-size: 24px;
+  height: 50px;
+  width: 50px;
+  font-size: 18px;
   font-weight: bold;
   border-radius: 100%;
   align-items: center;
@@ -61,8 +61,8 @@ export const DialerButton = styled.button`
   }
 
   @media (min-width: 400px) {
-    height: 100px;
-    width: 100px;
+    height: 70px;
+    width: 70px;
   }
 `;
 
@@ -83,4 +83,31 @@ margin-left:auto;
     }
     
     
+`
+
+export const ContactsListContainer = styled.ul`
+  list-style-type:none;
+  padding-left:0px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height:100%;
+  overflow-y:auto;
+  `
+
+export const CallContainer = styled.div`
+margin-top:10px;
+margin-bottom:10px;
+background-color:lightgreen;
+height:50px;
+width:50px;
+border-radius:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
+svg{
+height:30px;
+width:30px;
+}
 `
