@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { RiDeleteBack2Fill } from "react-icons/ri";
+import Cookies from 'js-cookie'
+import {Link} from 'react-router-dom'
 import { FaPhoneFlip } from "react-icons/fa6";
 import ContactCard from '../ContactCard'
 import ContactsContext from "../../ContactsContext";
@@ -15,7 +17,9 @@ import {
   NumberContainer,
   EraseButton,
   ContactsListContainer,
-  CallContainer
+  CallContainer,
+  AddContactButton,
+  AddBtnContainer
 } from "./styledComponents";
 
 const dialerList = [
@@ -49,6 +53,10 @@ const Keypad = () => {
   const onEraseNumber = () =>{
     updateDialedNumber(prevState=>prevState.slice(0,prevState.length-1))
   }
+  const onStoreNumberInCookies = () =>{
+    Cookies.set('phoneNo',dialedNumber,{expires:1})
+  }
+
   return (
     <ContactsContext.Consumer>
       {(value) => {
@@ -81,6 +89,14 @@ const Keypad = () => {
                 }
                 return <div key={eachContact.id} onClick={addNumberToInput}><ContactCard   contactObj={eachContact}/></div>})}
               </ContactsListContainer>}
+              {dialedNumber.length>0 && matchedContacts.length===0 && <AddBtnContainer>
+                <Link to="/add-contact" className="link">
+              <AddContactButton onClick={onStoreNumberInCookies}>
+                  Add to Contacts
+              </AddContactButton>
+              </Link>
+              </AddBtnContainer>}
+              
               
               <KeypadContainer>
                 <NumberContainer>

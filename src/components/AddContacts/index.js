@@ -4,6 +4,7 @@ import { TiTick } from "react-icons/ti";
 import { RiContactsBook2Fill } from "react-icons/ri";
 import { FaRegPlusSquare } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 import { v4 as uuidV4 } from "uuid";
 import ContactsContext from "../../ContactsContext";
 import {
@@ -56,7 +57,11 @@ const profileBgList = [
 
 const AddContacts = (props) => {
   const [name, updateName] = useState("");
-  const [phNo, updatePhNo] = useState("");
+  const [phNo, updatePhNo] = useState(()=>{
+    const number = Cookies.get('phoneNo')
+    return (number?number:'')
+  }
+    );
   const [email, updateEmail] = useState("");
   const [isSuccess, updateSuccessView] = useState(false);
 

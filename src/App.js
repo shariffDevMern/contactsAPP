@@ -6,6 +6,7 @@ import Contacts from "./components/Contacts";
 import ContactItemDetails from "./components/ContactItemDetails";
 import AddContacts from "./components/AddContacts";
 import Keypad from "./components/Keypad";
+import FavoriteContacts from "./components/FavoriteContacts";
 import ContactsContext from "./ContactsContext";
 
 const App = () => {
@@ -130,6 +131,7 @@ const App = () => {
         <Route path="/contacts/:id" element={<ContactItemDetails />} />
         <Route path="/add-contact" element={<AddContacts />} />
         <Route path="/keypad" element={<Keypad />} />
+        <Route path="/favorite-contacts" element={<FavoriteContacts />} />
       </Routes>
     </ContactsContext.Provider>
   );

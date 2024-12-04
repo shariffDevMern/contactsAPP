@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const FooterBg = styled.div`
   background-color: #598c73;
-
-  height: 7vh;
+  padding:15px;
+  margin-top:auto;
   display: flex;
   justify-content: space-around;
   padding-left: 10px;

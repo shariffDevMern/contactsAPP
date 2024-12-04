@@ -7,8 +7,8 @@ export const AlphabetContainer = styled.div`
   flex-direction: column;
   gap: 0.5%;
   margin-top: 10px;
-
-  height: 71vh;
+  top:25%;
+  
   justify-content: center;
 `;
 

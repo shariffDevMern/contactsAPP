@@ -87,7 +87,8 @@ margin-left:auto;
 
 export const ContactsListContainer = styled.ul`
   list-style-type:none;
-  padding-left:0px;
+  padding-left:20px;
+  
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -110,4 +111,19 @@ svg{
 height:30px;
 width:30px;
 }
+`
+
+export const AddContactButton = styled.button`
+background-color:transparent;
+border-style:none;
+color:#3f6252;
+font-size:20px;
+font-weight:bold;
+`
+export const AddBtnContainer = styled.div`
+height:100%;
+
+display:flex;
+justify-content:center;
+align-items:flex-end;
 `

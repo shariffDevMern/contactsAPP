@@ -11,7 +11,7 @@ export const Header = styled.div`
   align-items: center;
   padding-left: 20px;
   padding-right: 20px;
-  height: 10vh;
+  
 
   svg {
     border-radius: 100%;

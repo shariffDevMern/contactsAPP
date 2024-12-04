@@ -7,6 +7,7 @@ import { TbCalendarSad } from "react-icons/tb";
 import { FiBookOpen } from "react-icons/fi";
 import { FaRegPlusSquare } from "react-icons/fa";
 import Popup from "reactjs-popup";
+import Cookies from "js-cookie";
 import {
   MdOutlineSelectAll,
   MdDeselect,
@@ -32,6 +33,7 @@ import {
   AlertMessage,
   AlertBtnContainer,
   AlertButton,
+  ContactContainer
 } from "./styledComponents";
 import Footer from "../Footer";
 import ContactsList from "../ContactsList";
@@ -77,6 +79,11 @@ const Contacts = () => {
           toggleSelectOption(false);
         };
 
+        const removePhoneNumber = () =>{
+          Cookies.remove('phoneNo')
+          
+        }
+
         const renderNoMatchView = () => (
           <NoMatchBg>
             <TbCalendarSad />
@@ -92,7 +99,7 @@ const Contacts = () => {
             </NoContactText>
 
             <Link to="/add-contact" className="link">
-              <AddContactBtn>
+              <AddContactBtn onClick={removePhoneNumber}>
                 <FaRegPlusSquare /> Add Contact
               </AddContactBtn>
             </Link>
@@ -114,11 +121,12 @@ const Contacts = () => {
 
         return (
           <BgContainer>
+            <ContactContainer>
             <Header>
               <MenuHeader>Contacts</MenuHeader>
               {!isSelectOptionChecked ? (
                 <Link to="/add-contact" className="link">
-                  <CiCirclePlus />
+                  <CiCirclePlus onClick={removePhoneNumber} />
                 </Link>
               ) : (
                 selectedContacts.length !== 0 && (
@@ -233,6 +241,7 @@ const Contacts = () => {
               )}
             </ContactsListSection>
             <Footer />
+            </ContactContainer>
           </BgContainer>
         );
       }}
