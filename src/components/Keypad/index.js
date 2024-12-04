@@ -37,16 +37,16 @@ const dialerList = [
   {id:'#',value:"#"},
   
 ];
-const soundList = [
-  "/dial-sound-1.mp3",
-  "/dial-sound-2.mp3",
-  "/dial-sound-3.mp3",
-  "/dial-sound-4.mp3",
-  "/dial-sound-5.mp3",
-  "/dial-sound-6.mp3",
-  "/dial-sound-7.mp3",
-  "/dial-sound-8.mp3",
-];
+// const soundList = [
+//   "/dial-sound-1.mp3",
+//   "/dial-sound-2.mp3",
+//   "/dial-sound-3.mp3",
+//   "/dial-sound-4.mp3",
+//   "/dial-sound-5.mp3",
+//   "/dial-sound-6.mp3",
+//   "/dial-sound-7.mp3",
+//   "/dial-sound-8.mp3",
+// ];
 
 const Keypad = () => {
   const [dialedNumber, updateDialedNumber] = useState("");
@@ -106,19 +106,13 @@ const Keypad = () => {
                 </NumberContainer>
                 <Dialer>
                   {dialerList.map((eachNumber) => {
-                    const playSound = () => {
-                        const randomIndex = Math.floor(Math.random() * soundList.length);
-                      const sound = new Audio(soundList[randomIndex]);
-                      sound.play().catch((error) => {
-                        console.error("Audio playback failed:", error);
-                      });
-                    };
+                    
 
                     const onClickButton = (event) => {
                       updateDialedNumber(
                         (prevState) => prevState + event.target.value,
                       );
-                      playSound();
+                      
                     };
 
                     return (
