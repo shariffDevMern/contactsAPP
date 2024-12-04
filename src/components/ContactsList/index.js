@@ -11,22 +11,23 @@ const ContactsList = (props) => {
       <Letter id={`${contactData.id}`}>{contactData.id}</Letter>
       <hr />
       <List>
-        {contacts.map((eachContact) => (
-          isSelectOptionChecked?<ContactCard
-          key={eachContact.id}
-          isSelectOptionChecked={isSelectOptionChecked}
-          contactObj={eachContact}
-        />:
-        <Link className="link" to={`/contacts/${eachContact.id}`}>
-        <ContactCard
-          key={eachContact.id}
-          isSelectOptionChecked={isSelectOptionChecked}
-          contactObj={eachContact}
-        />
-        </Link>
-          
-          
-        ))}
+        {contacts.map((eachContact) =>
+          isSelectOptionChecked ? (
+            <ContactCard
+              key={eachContact.id}
+              isSelectOptionChecked={isSelectOptionChecked}
+              contactObj={eachContact}
+            />
+          ) : (
+            <Link className="link" to={`/contacts/${eachContact.id}`}>
+              <ContactCard
+                key={eachContact.id}
+                isSelectOptionChecked={isSelectOptionChecked}
+                contactObj={eachContact}
+              />
+            </Link>
+          ),
+        )}
       </List>
     </ContactItem>
   );

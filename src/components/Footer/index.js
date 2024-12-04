@@ -9,7 +9,7 @@ const Footer = () => {
     <FooterBg>
       <IconContainer>
         <Link to="/favorite-contacts" className="link">
-        <FaStar />
+          <FaStar />
         </Link>
       </IconContainer>
       <IconContainer>

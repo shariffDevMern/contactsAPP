@@ -19,10 +19,10 @@ export const KeypadContainer = styled.div`
 
 export const NumberInput = styled.input`
   color: white;
-  margin-left:40px;
-  border-style:none;
+  margin-left: 40px;
+  border-style: none;
   background-color: transparent;
-  width:200px;
+  width: 200px;
   outline: none;
   text-align: center;
   font-size: 28px;
@@ -31,7 +31,7 @@ export const NumberInput = styled.input`
 
 export const Dialer = styled.div`
   width: 200px;
-    
+
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -67,63 +67,60 @@ export const DialerButton = styled.button`
 `;
 
 export const NumberContainer = styled.div`
-display:flex;
-gap:10px;
-
+  display: flex;
+  gap: 10px;
 `;
 
 export const EraseButton = styled.button`
-background-color:transparent;
-border-style:none;
-margin-left:auto;
-    svg{
-    height:30px;
-    width:30px;
-    color:#a6ffd5;
-    }
-    
-    
-`
+  background-color: transparent;
+  border-style: none;
+  margin-left: auto;
+  svg {
+    height: 30px;
+    width: 30px;
+    color: #a6ffd5;
+  }
+`;
 
 export const ContactsListContainer = styled.ul`
-  list-style-type:none;
-  padding-left:20px;
-  
+  list-style-type: none;
+  padding-left: 20px;
+
   display: flex;
   flex-direction: column;
   gap: 10px;
-  height:100%;
-  overflow-y:auto;
-  `
+  height: 100%;
+  overflow-y: auto;
+`;
 
 export const CallContainer = styled.div`
-margin-top:10px;
-margin-bottom:10px;
-background-color:lightgreen;
-height:50px;
-width:50px;
-border-radius:100%;
-display:flex;
-justify-content:center;
-align-items:center;
-color:white;
-svg{
-height:30px;
-width:30px;
-}
-`
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: lightgreen;
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  svg {
+    height: 30px;
+    width: 30px;
+  }
+`;
 
 export const AddContactButton = styled.button`
-background-color:transparent;
-border-style:none;
-color:#3f6252;
-font-size:20px;
-font-weight:bold;
-`
+  background-color: transparent;
+  border-style: none;
+  color: #3f6252;
+  font-size: 20px;
+  font-weight: bold;
+`;
 export const AddBtnContainer = styled.div`
-height:100%;
+  height: 100%;
 
-display:flex;
-justify-content:center;
-align-items:flex-end;
-`
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+`;

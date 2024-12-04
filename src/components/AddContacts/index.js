@@ -57,11 +57,10 @@ const profileBgList = [
 
 const AddContacts = (props) => {
   const [name, updateName] = useState("");
-  const [phNo, updatePhNo] = useState(()=>{
-    const number = Cookies.get('phoneNo')
-    return (number?number:'')
-  }
-    );
+  const [phNo, updatePhNo] = useState(() => {
+    const number = Cookies.get("phoneNo");
+    return number ? number : "";
+  });
   const [email, updateEmail] = useState("");
   const [isSuccess, updateSuccessView] = useState(false);
 

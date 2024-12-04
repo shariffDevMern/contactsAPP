@@ -33,7 +33,7 @@ import {
   AlertMessage,
   AlertBtnContainer,
   AlertButton,
-  ContactContainer
+  ContactContainer,
 } from "./styledComponents";
 import Footer from "../Footer";
 import ContactsList from "../ContactsList";
@@ -79,10 +79,9 @@ const Contacts = () => {
           toggleSelectOption(false);
         };
 
-        const removePhoneNumber = () =>{
-          Cookies.remove('phoneNo')
-          
-        }
+        const removePhoneNumber = () => {
+          Cookies.remove("phoneNo");
+        };
 
         const renderNoMatchView = () => (
           <NoMatchBg>
@@ -122,125 +121,129 @@ const Contacts = () => {
         return (
           <BgContainer>
             <ContactContainer>
-            <Header>
-              <MenuHeader>Contacts</MenuHeader>
-              {!isSelectOptionChecked ? (
-                <Link to="/add-contact" className="link">
-                  <CiCirclePlus onClick={removePhoneNumber} />
-                </Link>
-              ) : (
-                selectedContacts.length !== 0 && (
-                  <Popup
-                    modal
-                    trigger={
-                      <DeleteBtn>
-                        <MdDelete />
-                      </DeleteBtn>
-                    }
-                    position="bottom left"
-                  >
-                    {(close) => (
-                      <>
-                        <PopUpContainer>
-                          <AlertMessage>
-                            {selectedContacts.length} contact
-                            {selectedContacts.length > 1 && "s"} will be
-                            deleted.
-                          </AlertMessage>
-                          <AlertBtnContainer>
-                            <AlertButton
-                              onClick={() => close(deleteContacts())}
-                              delete
-                            >
-                              Delete
-                            </AlertButton>
-                            <AlertButton
-                              type="button"
-                              className="trigger-button"
-                              onClick={() => close()}
-                            >
-                              Cancel
-                            </AlertButton>
-                          </AlertBtnContainer>
-                        </PopUpContainer>
-                      </>
-                    )}
-                  </Popup>
-                )
-              )}
-            </Header>
-            <ContactsListSection>
-              {contactsList.length === 0 ? (
-                renderNoContacsView()
-              ) : (
-                <>
-                  <SearchContainer>
-                    <SearchInput
-                      onChange={onChangeSearchVal}
-                      value={searchVal}
-                      placeholder="Search"
-                    />
-
-                    <FaMagnifyingGlass />
-                  </SearchContainer>
-                  <SelectContainer>
-                    <SelectContactsBtn
-                      onClick={OnToggleSelectOption}
-                      isSelected={isSelectOptionChecked}
+              <Header>
+                <MenuHeader>Contacts</MenuHeader>
+                {!isSelectOptionChecked ? (
+                  <Link to="/add-contact" className="link">
+                    <CiCirclePlus onClick={removePhoneNumber} />
+                  </Link>
+                ) : (
+                  selectedContacts.length !== 0 && (
+                    <Popup
+                      modal
+                      trigger={
+                        <DeleteBtn>
+                          <MdDelete />
+                        </DeleteBtn>
+                      }
+                      position="bottom left"
                     >
-                      {isSelectOptionChecked ? <MdCancel /> : <IoCheckbox />}
-                      {isSelectOptionChecked ? "Cancel" : "Select"}
-                    </SelectContactsBtn>
-                    {isSelectOptionChecked ? (
-                      <>
-                        {isSelectAllChecked ? (
-                          <SelectContactsBtn onClick={onToggleSelectAll}>
-                            <MdDeselect />
-                            Deselect All
-                          </SelectContactsBtn>
-                        ) : (
-                          <SelectContactsBtn onClick={onToggleSelectAll}>
-                            <MdOutlineSelectAll />
-                            Select All
-                          </SelectContactsBtn>
-                        )}
-                      </>
-                    ) : null}
-                  </SelectContainer>
+                      {(close) => (
+                        <>
+                          <PopUpContainer>
+                            <AlertMessage>
+                              {selectedContacts.length} contact
+                              {selectedContacts.length > 1 && "s"} will be
+                              deleted.
+                            </AlertMessage>
+                            <AlertBtnContainer>
+                              <AlertButton
+                                onClick={() => close(deleteContacts())}
+                                delete
+                              >
+                                Delete
+                              </AlertButton>
+                              <AlertButton
+                                type="button"
+                                className="trigger-button"
+                                onClick={() => close()}
+                              >
+                                Cancel
+                              </AlertButton>
+                            </AlertBtnContainer>
+                          </PopUpContainer>
+                        </>
+                      )}
+                    </Popup>
+                  )
+                )}
+              </Header>
+              <ContactsListSection>
+                {contactsList.length === 0 ? (
+                  renderNoContacsView()
+                ) : (
+                  <>
+                    <SearchContainer>
+                      <SearchInput
+                        onChange={onChangeSearchVal}
+                        value={searchVal}
+                        placeholder="Search"
+                      />
 
-                  <hr />
-                  {!isSelectOptionChecked && <AlphabetSideBar />}
+                      <FaMagnifyingGlass />
+                    </SearchContainer>
+                    <SelectContainer>
+                      <SelectContactsBtn
+                        onClick={OnToggleSelectOption}
+                        isSelected={isSelectOptionChecked}
+                      >
+                        {isSelectOptionChecked ? <MdCancel /> : <IoCheckbox />}
+                        {isSelectOptionChecked ? "Cancel" : "Select"}
+                      </SelectContactsBtn>
+                      {isSelectOptionChecked ? (
+                        <>
+                          {isSelectAllChecked ? (
+                            <SelectContactsBtn onClick={onToggleSelectAll}>
+                              <MdDeselect />
+                              Deselect All
+                            </SelectContactsBtn>
+                          ) : (
+                            <SelectContactsBtn onClick={onToggleSelectAll}>
+                              <MdOutlineSelectAll />
+                              Select All
+                            </SelectContactsBtn>
+                          )}
+                        </>
+                      ) : null}
+                    </SelectContainer>
 
-                  <ContactsListContainer>
-                    {searchVal.length > 0
-                      ? filteredContactsArray.length > 0
-                        ? filteredContactsArray.map((eachContact) => (
-                          isSelectOptionChecked?<ContactCard
-                            
-                          key={eachContact.id}
-                          contactObj={eachContact}
-                        />:<Link className="link" to={`/contacts/${eachContact.id}`}>
-                          <ContactCard
-                            
-                            key={eachContact.id}
-                            contactObj={eachContact}
-                          />
-                          </Link>
-                          
-                          ))
-                        : renderNoMatchView()
-                      : contactsList.map((eachContact) => (
-                          <ContactsList
-                            isSelectOptionChecked={isSelectOptionChecked}
-                            key={eachContact.id}
-                            contactData={eachContact}
-                          />
-                        ))}
-                  </ContactsListContainer>
-                </>
-              )}
-            </ContactsListSection>
-            <Footer />
+                    <hr />
+                    {!isSelectOptionChecked && <AlphabetSideBar />}
+
+                    <ContactsListContainer>
+                      {searchVal.length > 0
+                        ? filteredContactsArray.length > 0
+                          ? filteredContactsArray.map((eachContact) =>
+                              isSelectOptionChecked ? (
+                                <ContactCard
+                                  key={eachContact.id}
+                                  contactObj={eachContact}
+                                />
+                              ) : (
+                                <Link
+                                  className="link"
+                                  to={`/contacts/${eachContact.id}`}
+                                >
+                                  <ContactCard
+                                    key={eachContact.id}
+                                    contactObj={eachContact}
+                                  />
+                                </Link>
+                              ),
+                            )
+                          : renderNoMatchView()
+                        : contactsList.map((eachContact) => (
+                            <ContactsList
+                              isSelectOptionChecked={isSelectOptionChecked}
+                              key={eachContact.id}
+                              contactData={eachContact}
+                            />
+                          ))}
+                    </ContactsListContainer>
+                  </>
+                )}
+              </ContactsListSection>
+              <Footer />
             </ContactContainer>
           </BgContainer>
         );

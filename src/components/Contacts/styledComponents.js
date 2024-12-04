@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 export const ContactsListSection = styled.div`
-  display:flex;
-  flex-direction:column;
+  display: flex;
+  flex-direction: column;
   padding-left: 20px;
-  height:100%;
-  overflow-y:auto;
+  height: 100%;
+  overflow-y: auto;
   padding-right: 20px;
 `;
 export const SearchContainer = styled.div`
@@ -42,9 +42,8 @@ export const ContactsListContainer = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  
+
   overflow-y: auto;
-  
 `;
 
 export const NoMatchBg = styled.div`
@@ -151,8 +150,8 @@ export const AlertButton = styled.button`
 `;
 
 export const ContactContainer = styled.div`
-height:100vh;
-    display:flex;
-    
-    flex-direction:column;
-  `
+  height: 100vh;
+  display: flex;
+
+  flex-direction: column;
+`;
