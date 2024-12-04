@@ -104,6 +104,7 @@ const AddContacts = (props) => {
               profileBgList[Math.floor(Math.random() * profileBgList.length)],
             email,
             isChecked: false,
+            isFavorite: false,
           };
 
           AddContact(contactData);

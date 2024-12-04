@@ -2,39 +2,38 @@ import styled from "styled-components";
 
 export const ProfileBackground = styled.div`
   background-image: linear-gradient(to bottom, white, #3f6252);
-  height: 40vh;
-  max-height: 400px;
+
   display: flex;
   flex-direction: column;
-  justify-content:space-between;
+  justify-content: space-between;
   align-items: center;
   border-bottom-left-radius: 40px;
   border-bottom-right-radius: 40px;
-  padding:10px;
+  padding: 10px;
 `;
 
-export const HeaderMenu= styled.div`
-display:flex;
-justify-content:space-between;
-width:100%;
-align-items:center;
-`
+export const HeaderMenu = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+`;
 
 export const HeaderBtn = styled.button`
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:5px;
-  border-radius:10px;
-  padding:10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  border-radius: 10px;
+  padding: 10px;
   background-color: #3f6252;
-  border-style:none;
+  border-style: none;
   color: #a6ffd5;
-  `
-
+`;
 
 export const Profile = styled.div`
   height: 200px;
+  margin-top: auto;
   width: 200px;
   border-radius: 100%;
   padding: 5px;
@@ -106,10 +105,24 @@ export const InputForm = styled.form`
 `;
 
 export const SaveButton = styled.button`
-border-radius:10px;
-  padding:10px;
+  border-radius: 10px;
+  padding: 10px;
   background-color: #3f6252;
-  border-style:none;
+  border-style: none;
   color: #a6ffd5;
+`;
 
-`
+export const FavoriteButton = styled.button`
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  border-style: none;
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 10px;
+  color: #3f6252;
+  svg {
+    color: gold;
+  }
+`;

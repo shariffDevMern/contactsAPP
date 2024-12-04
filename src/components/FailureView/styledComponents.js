@@ -1,20 +1,19 @@
 import styled from "styled-components";
 
 export const ErrorMsgContainer = styled.div`
-    height:100%;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    `
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+`;
 export const ErrorMsg = styled.h1`
-    color: #3f6252;
-    
-`
+  color: #3f6252;
+`;
 
 export const OptionButton = styled.button`
-background-color: #284136;
+  background-color: #284136;
   color: white;
   border-style: none;
   border-radius: 20px;

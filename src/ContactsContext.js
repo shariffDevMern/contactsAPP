@@ -6,7 +6,7 @@ const ContactsContext = React.createContext({
   onToggleSelectContact: () => {},
   toggleSelectAllContacts: () => {},
   onDeleteContacts: () => {},
-  updateContact:() =>{}
+  updateContact: () => {},
 });
 
 export default ContactsContext;

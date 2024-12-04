@@ -13,14 +13,16 @@ const Footer = () => {
       <IconContainer>
         <IoTimeSharp />
       </IconContainer>
-      <Link className="link">
+      <Link to="/contacts" className="link">
         <IconContainer>
           <IoMdContact />
         </IconContainer>
       </Link>
-      <IconContainer>
-        <IoIosKeypad />
-      </IconContainer>
+      <Link className="link" to="/keypad">
+        <IconContainer>
+          <IoIosKeypad />
+        </IconContainer>
+      </Link>
     </FooterBg>
   );
 };

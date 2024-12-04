@@ -1,10 +1,11 @@
 import { Routes, Route } from "react-router-dom";
-import { useState} from "react";
+import { useState } from "react";
 import "./App.css";
 import Home from "./components/Home";
 import Contacts from "./components/Contacts";
 import ContactItemDetails from "./components/ContactItemDetails";
 import AddContacts from "./components/AddContacts";
+import Keypad from "./components/Keypad";
 import ContactsContext from "./ContactsContext";
 
 const App = () => {
@@ -13,6 +14,8 @@ const App = () => {
     const storedContacts = localStorage.getItem("contactsList");
     return storedContacts ? JSON.parse(storedContacts) : [];
   });
+
+  console.log(contactsList);
   const [selectedContacts, updateSelectedContacts] = useState([]);
 
   // Function to update local storage whenever contactsList changes
@@ -75,7 +78,7 @@ const App = () => {
     });
     updateContact(updatedContactsList);
     updateSelectedContacts(selectedArray);
-     // Update local storage
+    // Update local storage
   };
 
   const toggleSelectAllContacts = (value) => {
@@ -94,7 +97,7 @@ const App = () => {
     } else {
       updateSelectedContacts([]);
     }
-     // Update local storage
+    // Update local storage
   };
 
   const onDeleteContacts = () => {
@@ -118,7 +121,7 @@ const App = () => {
         onToggleSelectContact,
         toggleSelectAllContacts,
         onDeleteContacts,
-        updateContact
+        updateContact,
       }}
     >
       <Routes>
@@ -126,6 +129,7 @@ const App = () => {
         <Route path="/contacts" element={<Contacts />} />
         <Route path="/contacts/:id" element={<ContactItemDetails />} />
         <Route path="/add-contact" element={<AddContacts />} />
+        <Route path="/keypad" element={<Keypad />} />
       </Routes>
     </ContactsContext.Provider>
   );
