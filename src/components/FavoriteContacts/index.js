@@ -2,7 +2,7 @@ import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { BgContainer, Header, MenuHeader } from "../../styledComponents";
 import ContactsContext from "../../ContactsContext";
-import { FavoriteContactsList, FavoriteContainer } from "./styledComponents";
+import { FavoriteContactsList, FavoriteContainer,NofavoriteContainer,Message } from "./styledComponents";
 import Footer from "../Footer";
 import ContactCard from "../ContactCard";
 
@@ -20,6 +20,14 @@ const FavoriteContacts = () => {
             matchedContacts.push(...matchingContacts);
           });
         }
+        const renderNoFavoritesView =() =>
+          <NofavoriteContainer>
+              <Message>
+                Favorited contacts will be appear here.
+              </Message>
+          </NofavoriteContainer>
+
+        
 
         return (
           <BgContainer>
@@ -28,20 +36,24 @@ const FavoriteContacts = () => {
                 <MenuHeader>Favorites</MenuHeader>
                 <FaStar />
               </Header>
-
+              {matchedContacts.length!== 0 ?
               <FavoriteContactsList>
-                {matchedContacts.map((eachContact) => (
-                  <Link
-                    to={`/contacts/${eachContact.id}`}
-                    className="link"
-                    key={eachContact.id}
-                  >
-                    <ContactCard contactObj={eachContact} />
-                  </Link>
-                ))}
-              </FavoriteContactsList>
+              {matchedContacts.map((eachContact) => (
+                <Link
+                  to={`/contacts/${eachContact.id}`}
+                  className="link"
+                  key={eachContact.id}
+                >
+                  <ContactCard contactObj={eachContact} />
+                </Link>
+              ))}
+            </FavoriteContactsList>:
+              renderNoFavoritesView()
+              }
+              
               <Footer />
             </FavoriteContainer>
+            
           </BgContainer>
         );
       }}
