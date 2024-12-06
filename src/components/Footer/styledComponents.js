@@ -13,7 +13,7 @@ export const FooterBg = styled.div`
 
 export const IconContainer = styled.div`
   svg {
-    color: #233b2f;
+    color: ${(props) => (props.isActive ? "#a6ffd5" : "#233b2f")};
     height: 25px;
     width: 25px;
   }

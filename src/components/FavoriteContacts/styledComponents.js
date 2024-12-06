@@ -18,18 +18,15 @@ export const FavoriteContainer = styled.div`
 `;
 
 export const NofavoriteContainer = styled.div`
-display:flex;
-height:100%;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-
-
-`
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 export const Message = styled.p`
   text-align: center;
   color: #3f6252;
   font-weight: bold;
-`
-
+`;

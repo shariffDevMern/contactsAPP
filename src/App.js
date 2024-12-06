@@ -15,6 +15,7 @@ const App = () => {
     const storedContacts = localStorage.getItem("contactsList");
     return storedContacts ? JSON.parse(storedContacts) : [];
   });
+  localStorage.setItem("contactsList", JSON.stringify(contactsList));
 
   console.log(contactsList);
   const [selectedContacts, updateSelectedContacts] = useState([]);
