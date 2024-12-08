@@ -88,7 +88,6 @@ const ContactItemDetails = () => {
         const { contactsList, updateContact } = value;
         if (contactsList.length !== 0) {
           const contactObj = getContactsObj(contactsList);
-          console.log(contactObj);
 
           if (contactObj !== undefined) {
             const onToggleEditMode = () => {

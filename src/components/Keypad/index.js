@@ -2,6 +2,7 @@ import { useState } from "react";
 import { RiDeleteBack2Fill } from "react-icons/ri";
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
+import Popup from "reactjs-popup";
 import { FaPhoneFlip } from "react-icons/fa6";
 import ContactCard from "../ContactCard";
 import ContactsContext from "../../ContactsContext";
@@ -17,10 +18,11 @@ import {
   NumberContainer,
   EraseButton,
   ContactsListContainer,
-  CallContainer,
+  CallbBtn,
   AddContactButton,
   AddBtnContainer,
 } from "./styledComponents";
+import CallModal from "../CallModal";
 
 const dialerList = [
   { id: 1, value: "1" },
@@ -60,7 +62,7 @@ const Keypad = () => {
     <ContactsContext.Consumer>
       {(value) => {
         const { contactsList } = value;
-        console.log(contactsList);
+
         const matchedContacts = [];
         if (contactsList.length !== 0 || contactsList !== null) {
           contactsList.forEach((group) => {
@@ -79,7 +81,6 @@ const Keypad = () => {
                   {matchedContacts.map((eachContact) => {
                     const addNumberToInput = () => {
                       updateDialedNumber(eachContact.phone);
-                      console.log(eachContact.phone);
                     };
                     return (
                       <div key={eachContact.id} onClick={addNumberToInput}>
@@ -127,9 +128,27 @@ const Keypad = () => {
                     );
                   })}
                 </Dialer>
-                <CallContainer>
-                  <FaPhoneFlip />
-                </CallContainer>
+                {dialedNumber.length !== 0 ? (
+                  <Popup
+                    modal
+                    trigger={
+                      <CallbBtn>
+                        <FaPhoneFlip />
+                      </CallbBtn>
+                    }
+                  >
+                    {(close) => (
+                      <CallModal
+                        closingFunc={close}
+                        callDetails={{ dialedNumber }}
+                      />
+                    )}
+                  </Popup>
+                ) : (
+                  <CallbBtn>
+                    <FaPhoneFlip />
+                  </CallbBtn>
+                )}
               </KeypadContainer>
               <FooterContainer>
                 <Footer />

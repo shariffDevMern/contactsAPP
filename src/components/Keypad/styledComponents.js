@@ -93,20 +93,26 @@ export const ContactsListContainer = styled.ul`
   overflow-y: auto;
 `;
 
-export const CallContainer = styled.div`
+export const CallbBtn = styled.button`
   margin-top: 10px;
   margin-bottom: 10px;
   background-color: lightgreen;
   height: 50px;
   width: 50px;
+  border-style: none;
   border-radius: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
+  opacity: 0.6;
   svg {
-    height: 30px;
-    width: 30px;
+    height: 20px;
+
+    width: 20px;
+  }
+  &:active {
+    opacity: 1;
   }
 `;
 

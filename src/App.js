@@ -11,13 +11,13 @@ import ContactsContext from "./ContactsContext";
 
 const App = () => {
   // Retrieve contacts from local storage or initialize with an empty array
+
   const [contactsList, updateContact] = useState(() => {
     const storedContacts = localStorage.getItem("contactsList");
     return storedContacts ? JSON.parse(storedContacts) : [];
   });
   localStorage.setItem("contactsList", JSON.stringify(contactsList));
 
-  console.log(contactsList);
   const [selectedContacts, updateSelectedContacts] = useState([]);
 
   // Function to update local storage whenever contactsList changes
