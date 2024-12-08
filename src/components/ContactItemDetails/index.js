@@ -22,6 +22,9 @@ import {
   FavoriteButton,
 } from "./styledComponents";
 import FailureView from "../FailureView";
+import Popup from "reactjs-popup";
+import CallModal from "../CallModal";
+import VideoCallModal from "../VideoCallModal";
 
 const ContactItemDetails = () => {
   const contactId = useParams();
@@ -271,16 +274,41 @@ const ContactItemDetails = () => {
                         <br />
                         Message
                       </FeatureButton>
-                      <FeatureButton>
-                        <FaPhoneFlip />
-                        <br />
-                        Call
-                      </FeatureButton>
-                      <FeatureButton>
-                        <FaVideo />
-                        <br />
-                        Video
-                      </FeatureButton>
+                      <Popup
+                        modal
+                        trigger={
+                          <FeatureButton>
+                            <FaPhoneFlip />
+                            <br />
+                            Call
+                          </FeatureButton>
+                        }
+                      >
+                        {(close) => (
+                          <CallModal
+                            closingFunc={close}
+                            callDetails={{ dialedNumber: contactObj.phone }}
+                          />
+                        )}
+                      </Popup>
+                      <Popup
+                        modal
+                        trigger={
+                          <FeatureButton>
+                            <FaVideo />
+                            <br />
+                            Video
+                          </FeatureButton>
+                        }
+                      >
+                        {(close) => (
+                          <VideoCallModal
+                            closingFunc={close}
+                            callDetails={{ dialedNumber:contactObj.phone }}
+                          />
+                        )}
+                      </Popup>
+
                       <FeatureButton>
                         <MdEmail />
                         <br />

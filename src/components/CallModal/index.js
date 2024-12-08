@@ -98,9 +98,9 @@ const CallModal = (props) => {
               <CallerName>
                 <span>Calling</span>
                 <br />
-                <span>Mobile</span>
-                <br />
                 {userName || dialedNumber}
+                <br />
+                <span>Mobile</span>
               </CallerName>
             </NameContainer>
             <CallFeaturesContainer>
