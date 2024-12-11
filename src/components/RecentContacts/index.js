@@ -155,8 +155,9 @@ const RecentContacts = () => {
               ) : (
                 <RecentList>
                   {updatedContacts.map((eachCalls) => (
-                    <CallItem key={eachCalls.id}>
+                    <CallItem>
                       <Popup
+                      
                         modal
                         trigger={
                           <div className="recent-call">
