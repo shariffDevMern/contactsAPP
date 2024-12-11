@@ -88,7 +88,7 @@ const ContactItemDetails = () => {
   return (
     <ContactsContext.Consumer>
       {(value) => {
-        const { contactsList, updateContact } = value;
+        const { contactsList, updateContact,updateRecentCalls } = value;
         if (contactsList.length !== 0) {
           const contactObj = getContactsObj(contactsList);
 
@@ -215,6 +215,13 @@ const ContactItemDetails = () => {
                 }));
               });
             };
+            const handleCall = () => {
+              console.log("helo")
+              updateRecentCalls((prevCalls) => [
+                ...prevCalls,
+                { number: contactObj.phone, timestamp: new Date() },
+              ]);
+            };
 
             return (
               <BgContainer>
@@ -275,19 +282,23 @@ const ContactItemDetails = () => {
                         Message
                       </FeatureButton>
                       <Popup
+
                         modal
                         trigger={
-                          <FeatureButton>
+                          <div>
+                          <FeatureButton onClick={handleCall} >
                             <FaPhoneFlip />
                             <br />
                             Call
                           </FeatureButton>
+                          </div>
                         }
                       >
                         {(close) => (
                           <CallModal
                             closingFunc={close}
                             callDetails={{ dialedNumber: contactObj.phone }}
+                            
                           />
                         )}
                       </Popup>
@@ -309,7 +320,7 @@ const ContactItemDetails = () => {
                         )}
                       </Popup>
 
-                      <FeatureButton>
+                      <FeatureButton >
                         <MdEmail />
                         <br />
                         Mail

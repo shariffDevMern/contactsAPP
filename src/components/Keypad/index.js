@@ -51,9 +51,11 @@ const dialerList = [
 
 const Keypad = () => {
   const [dialedNumber, updateDialedNumber] = useState("");
+
   const onEraseNumber = () => {
     updateDialedNumber((prevState) => prevState.slice(0, prevState.length - 1));
   };
+
   const onStoreNumberInCookies = () => {
     Cookies.set("phoneNo", dialedNumber, { expires: 1 });
   };
@@ -61,7 +63,7 @@ const Keypad = () => {
   return (
     <ContactsContext.Consumer>
       {(value) => {
-        const { contactsList } = value;
+        const { contactsList, updateRecentCalls } = value;
 
         const matchedContacts = [];
         if (contactsList.length !== 0 || contactsList !== null) {
@@ -72,6 +74,15 @@ const Keypad = () => {
             matchedContacts.push(...matchingContacts);
           });
         }
+
+        // Function to handle adding to recent calls
+        const handleCall = () => {
+          console.log("helo")
+          updateRecentCalls((prevCalls) => [
+            ...prevCalls,
+            { number: dialedNumber, timestamp: new Date() },
+          ]);
+        };
 
         return (
           <BgContainer>
@@ -102,7 +113,7 @@ const Keypad = () => {
 
               <KeypadContainer>
                 <NumberContainer>
-                  <NumberInput value={dialedNumber} />
+                  <NumberInput value={dialedNumber} readOnly />
                   {dialedNumber.length > 0 && (
                     <EraseButton onClick={onEraseNumber}>
                       <RiDeleteBack2Fill />
@@ -130,11 +141,14 @@ const Keypad = () => {
                 </Dialer>
                 {dialedNumber.length !== 0 ? (
                   <Popup
+                    
                     modal
                     trigger={
-                      <CallbBtn>
+                      <div>
+                      <CallbBtn onClick={handleCall}>
                         <FaPhoneFlip />
                       </CallbBtn>
+                      </div>
                     }
                   >
                     {(close) => (
@@ -162,3 +176,4 @@ const Keypad = () => {
 };
 
 export default Keypad;
+

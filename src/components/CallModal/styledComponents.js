@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ModalContainer = styled.div`
-  height: 90vh;
+  height: 100vh;
   width: 100vw;
 
   background-image: linear-gradient(to top, white, #3f6252);

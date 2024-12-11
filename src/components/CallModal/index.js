@@ -3,7 +3,7 @@ import { BsMicMuteFill } from "react-icons/bs";
 import { IoRecording } from "react-icons/io5";
 import { PiPhoneDisconnectFill } from "react-icons/pi";
 import { IoIosKeypad } from "react-icons/io";
-import { useEffect, useState } from "react";
+import {useEffect, useState } from "react";
 import {
   ModalContainer,
   NameContainer,
@@ -32,16 +32,19 @@ let sound;
 let timerId;
 
 const CallModal = (props) => {
-  const { callDetails, closingFunc } = props;
+  const { callDetails, closingFunc} = props;
   const { dialedNumber } = callDetails;
   const [userName, updateUserName] = useState("");
+  
 
   useEffect(() => {
     // Initialize and play sound
-
     const randomIndex = Math.floor(Math.random() * callerSoundList.length);
     timerId = setTimeout(
-      () => closingFunc(),
+      () => {
+        closingFunc()
+        
+      },
       (callerSoundList[randomIndex].duration - 0.5) * 1000,
     );
     sound = new Audio(callerSoundList[randomIndex].callerSound);
@@ -56,6 +59,7 @@ const CallModal = (props) => {
         sound.pause();
         sound.currentTime = 0;
         clearTimeout(timerId);
+        
       }
     };
   });
@@ -91,6 +95,8 @@ const CallModal = (props) => {
             }
           }
         }
+        
+        
 
         return (
           <ModalContainer>
@@ -111,6 +117,7 @@ const CallModal = (props) => {
                       ? () => {
                           cutCall();
                           closingFunc();
+                          
                         }
                       : null
                   }
