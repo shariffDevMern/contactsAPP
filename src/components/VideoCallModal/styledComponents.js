@@ -54,7 +54,9 @@ export const ControlButton = styled.button`
   font-size: 1.2em;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  transition: transform 0.2s, background-color 0.2s;
+  transition:
+    transform 0.2s,
+    background-color 0.2s;
 
   &:hover {
     transform: scale(1.1);

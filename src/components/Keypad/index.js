@@ -63,7 +63,7 @@ const Keypad = () => {
   return (
     <ContactsContext.Consumer>
       {(value) => {
-        const { contactsList, updateRecentCalls } = value;
+        const { contactsList, recentCalls, updateRecentCalls } = value;
 
         const matchedContacts = [];
         if (contactsList.length !== 0 || contactsList !== null) {
@@ -77,11 +77,12 @@ const Keypad = () => {
 
         // Function to handle adding to recent calls
         const handleCall = () => {
-          console.log("helo")
+          
           updateRecentCalls((prevCalls) => [
             ...prevCalls,
             { number: dialedNumber, timestamp: new Date() },
           ]);
+          localStorage.setItem("recentCalls", JSON.stringify(recentCalls));
         };
 
         return (
@@ -141,13 +142,12 @@ const Keypad = () => {
                 </Dialer>
                 {dialedNumber.length !== 0 ? (
                   <Popup
-                    
                     modal
                     trigger={
                       <div>
-                      <CallbBtn onClick={handleCall}>
-                        <FaPhoneFlip />
-                      </CallbBtn>
+                        <CallbBtn onClick={handleCall}>
+                          <FaPhoneFlip />
+                        </CallbBtn>
                       </div>
                     }
                   >
@@ -176,4 +176,3 @@ const Keypad = () => {
 };
 
 export default Keypad;
-

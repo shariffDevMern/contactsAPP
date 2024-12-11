@@ -1,13 +1,13 @@
 import React, { useRef, useEffect, useState } from "react";
-import { 
-  VideoScreenContainer, 
-  StyledVideo, 
-  Overlay, 
-  ControlBar, 
-  ControlButton, 
-  TopRightControls, 
+import {
+  VideoScreenContainer,
+  StyledVideo,
+  Overlay,
+  ControlBar,
+  ControlButton,
+  TopRightControls,
   MinimizedVideo,
-  EndCallButton
+  EndCallButton,
 } from "./styledComponents";
 
 const VideoCallModal = () => {
@@ -20,7 +20,7 @@ const VideoCallModal = () => {
 
   useEffect(() => {
     const videoElement = localVideo.current;
-    
+
     // Access the user's webcam
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true }) // Video and audio
@@ -77,7 +77,9 @@ const VideoCallModal = () => {
 
   const handleMinimize = () => setMinimized(!minimized);
   if (!callActive) {
-    return <h1 style={{ textAlign: "center", marginTop: "50px" }}>Call Ended</h1>;
+    return (
+      <h1 style={{ textAlign: "center", marginTop: "50px" }}>Call Ended</h1>
+    );
   }
   return minimized ? (
     <MinimizedVideo onClick={handleMinimize}>
@@ -92,7 +94,9 @@ const VideoCallModal = () => {
           <ControlButton onClick={handleMinimize}>➖</ControlButton>
         </TopRightControls>
         <ControlBar>
-          <ControlButton onClick={() => console.log("More options")}>⋮</ControlButton>
+          <ControlButton onClick={() => console.log("More options")}>
+            ⋮
+          </ControlButton>
           <ControlButton onClick={toggleVideo}>
             {isVideoOn ? "📹" : "🚫📹"}
           </ControlButton>

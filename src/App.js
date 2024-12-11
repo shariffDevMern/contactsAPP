@@ -10,7 +10,6 @@ import FavoriteContacts from "./components/FavoriteContacts";
 import RecentContacts from "./components/RecentContacts";
 import ContactsContext from "./ContactsContext";
 
-
 const App = () => {
   // Retrieve contacts from local storage or initialize with an empty array
 
@@ -18,14 +17,18 @@ const App = () => {
     const storedContacts = localStorage.getItem("contactsList");
     return storedContacts ? JSON.parse(storedContacts) : [];
   });
-  
-  
+
   localStorage.setItem("contactsList", JSON.stringify(contactsList));
 
   const [selectedContacts, updateSelectedContacts] = useState([]);
-  const [recentCalls,updateRecentCalls] = useState([])
- 
-  console.log(recentCalls)
+  const [recentCalls, updateRecentCalls] = useState(() => {
+    const storedRecents = localStorage.getItem("recentCalls");
+    return storedRecents ? JSON.parse(storedRecents) : [];
+  });
+
+  localStorage.setItem("recentCalls", JSON.stringify(recentCalls));
+
+  
   // Function to update local storage whenever contactsList changes
   const updateLocalStorage = (updatedList) => {
     localStorage.setItem("contactsList", JSON.stringify(updatedList));
@@ -131,7 +134,7 @@ const App = () => {
         toggleSelectAllContacts,
         onDeleteContacts,
         updateContact,
-        updateRecentCalls
+        updateRecentCalls,
       }}
     >
       <Routes>

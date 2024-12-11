@@ -2,13 +2,13 @@ import React from "react";
 
 const ContactsContext = React.createContext({
   contactsList: [],
-  recentCalls:[],
+  recentCalls: [],
   AddContact: () => {},
   onToggleSelectContact: () => {},
   toggleSelectAllContacts: () => {},
   onDeleteContacts: () => {},
   updateContact: () => {},
-  updateRecentCalls:()=>{}
+  updateRecentCalls: () => {},
 });
 
 export default ContactsContext;

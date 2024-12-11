@@ -88,7 +88,7 @@ const ContactItemDetails = () => {
   return (
     <ContactsContext.Consumer>
       {(value) => {
-        const { contactsList, updateContact,updateRecentCalls } = value;
+        const { contactsList, updateContact, updateRecentCalls } = value;
         if (contactsList.length !== 0) {
           const contactObj = getContactsObj(contactsList);
 
@@ -216,7 +216,7 @@ const ContactItemDetails = () => {
               });
             };
             const handleCall = () => {
-              console.log("helo")
+              
               updateRecentCalls((prevCalls) => [
                 ...prevCalls,
                 { number: contactObj.phone, timestamp: new Date() },
@@ -282,15 +282,14 @@ const ContactItemDetails = () => {
                         Message
                       </FeatureButton>
                       <Popup
-
                         modal
                         trigger={
                           <FeatureButton>
-                          <FeatureButton onClick={handleCall} >
-                            <FaPhoneFlip />
-                            <br />
-                            Call
-                          </FeatureButton>
+                            <div onClick={handleCall}>
+                              <FaPhoneFlip />
+                              <br />
+                              Call
+                            </div>
                           </FeatureButton>
                         }
                       >
@@ -298,7 +297,6 @@ const ContactItemDetails = () => {
                           <CallModal
                             closingFunc={close}
                             callDetails={{ dialedNumber: contactObj.phone }}
-                            
                           />
                         )}
                       </Popup>
@@ -315,12 +313,12 @@ const ContactItemDetails = () => {
                         {(close) => (
                           <VideoCallModal
                             closingFunc={close}
-                            callDetails={{ dialedNumber:contactObj.phone }}
+                            callDetails={{ dialedNumber: contactObj.phone }}
                           />
                         )}
                       </Popup>
 
-                      <FeatureButton >
+                      <FeatureButton>
                         <MdEmail />
                         <br />
                         Mail
