@@ -285,13 +285,13 @@ const ContactItemDetails = () => {
 
                         modal
                         trigger={
-                          <div>
+                          <FeatureButton>
                           <FeatureButton onClick={handleCall} >
                             <FaPhoneFlip />
                             <br />
                             Call
                           </FeatureButton>
-                          </div>
+                          </FeatureButton>
                         }
                       >
                         {(close) => (

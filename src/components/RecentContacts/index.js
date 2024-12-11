@@ -2,11 +2,15 @@ import {v4 as uuidV4} from 'uuid'
 import Popup from 'reactjs-popup'
 import { BiSolidPhoneOutgoing } from "react-icons/bi";
 import { IoIosInformationCircle } from "react-icons/io";
+import { FaPlus } from "react-icons/fa6";
+import Cookies from 'js-cookie';
 import CallModal from '../CallModal'
 import { BgContainer,Header,MenuHeader } from "../../styledComponents"
-import { RecentContainer,RecentList,CallInfoContainer,InfoButton,CallItem,DateText,CallDate } from "./styledComponents"
+import { RecentContainer,RecentList,CallInfoContainer,InfoButton,CallItem,DateText,CallDate,NoHistoryView,NoHistoryText,AddUnknownContactBtn } from "./styledComponents"
 import ContactsContext from "../../ContactsContext"
 import ContactCard from "../ContactCard"
+import Footer from '../Footer'
+import { Link } from 'react-router-dom';
 
 const RecentContacts = () =>{
   function timeAgo(timestamp) {
@@ -46,7 +50,7 @@ const RecentContacts = () =>{
       
                 if (contact) {
                   // If found, return the contact object
-                  return {...contact,timestamp:timeAgo(call.timestamp)};
+                  return {...contact,timestamp:timeAgo(call.timestamp),isUnknown:false};
                 } else {
                   // If not found, create a new contact object
                   return {
@@ -57,8 +61,10 @@ const RecentContacts = () =>{
                     email: "",
                     isChecked: false,
                     isFavorite: false,
-                    timestamp:timeAgo(call.timestamp)
+                    timestamp:timeAgo(call.timestamp),
+                    isUnknown:true
                   };
+
                 }
               });
             
@@ -68,11 +74,26 @@ const RecentContacts = () =>{
             const updatedContacts = getContactsFromRecentCalls(contactsList, recentCalls);
             console.log(updatedContacts)
 
+            const renderNoHistoryView = () =>{
+              return (
+                <NoHistoryView>
+              <NoHistoryText>
+                No History To Show
+              </NoHistoryText>
+              </NoHistoryView>
+              )
+              }
+              
+            
             const handleCall = (currentNum) => {
               updateRecentCalls((prevCalls) => [
                 ...prevCalls,
                 { number:currentNum , timestamp: new Date() },
               ]);
+            };
+
+            const onStoreNumberInCookies = (currentNum) => {
+              Cookies.set("phoneNo", currentNum, { expires: 1 });
             };
             
             return(<BgContainer>
@@ -80,14 +101,14 @@ const RecentContacts = () =>{
                 <Header>
                 <MenuHeader>Recents</MenuHeader>
                 </Header>
-                <RecentList>
+                {updatedContacts.length===0?renderNoHistoryView():<RecentList>
                 {updatedContacts.map(eachCalls=>(
                   <CallItem>
                   <Popup
 
                   modal
                   trigger={
-                    <div>
+                    <div className='recent-call'>
                     <div onClick={()=>{
                       handleCall(eachCalls.phone)
                     }}>
@@ -105,9 +126,20 @@ const RecentContacts = () =>{
                   )}
                 </Popup>
                 <CallInfoContainer>
+                  {eachCalls.isUnknown?
+                  <Link to="/add-contact" className='link'>
+                  <AddUnknownContactBtn onClick={()=>{
+                    onStoreNumberInCookies(eachCalls.phone)
+                  }}>
+                    <FaPlus/>
+                  </AddUnknownContactBtn>
+                  </Link>:
+                  <Link className="link" to={`/contacts/${eachCalls.id}`}>
                   <InfoButton>
                   <IoIosInformationCircle/>
                   </InfoButton>
+                  </Link>}
+                  
                   <CallDate>
                     <BiSolidPhoneOutgoing/>
                     <DateText>
@@ -120,7 +152,9 @@ const RecentContacts = () =>{
     )}
                   
                   
-                </RecentList>
+                </RecentList>}
+                
+                <Footer/>
                 </RecentContainer>
             </BgContainer>)
         }}
